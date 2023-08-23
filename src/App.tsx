@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { Artist, Track, SpotifyApi, ItemTypes } from "@spotify/web-api-ts-sdk";
+import { Artist, Track, Album, SpotifyApi, ItemTypes } from "@spotify/web-api-ts-sdk";
 import Card from "./components/Card";
 import "./App.css";
 
 function App() {
+
+  // type SearchType = (<Track> | <Artist> | <Album>)
+
   const [searchText, setSearchText] = useState("");
-  // const [searchType, setSearchType] = useState<ItemTypes>()
+  // const [searchType, setSearchType] = useState<SearchType>()
   const [results, setResults] = useState<Artist[]>([]);
   // const [artistResults, setArtistResults] = useState<Artist[]>();
   // const [trackResults, setTrackResults] = useState<Track[]>()
@@ -34,7 +37,7 @@ function App() {
         </select>
         <button>Submit</button>
       </form>
-      <div>
+      <div className="results-container">
         {results?.map((res) => (
           <Card props={res} />
         ))}

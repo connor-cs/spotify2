@@ -29,6 +29,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  color: rgb(255, 255, 255);
+  background-color: rgb(18, 18, 17);
 }
 
 h1 {
@@ -70,4 +72,17 @@ button:focus-visible {
 
 .card {
   border: 2px solid black;
+  padding: 1rem;
+  margin: 0.5rem;
+}
+
+.results-container {
+  border: 2px solid red;
+  display: grid;
+  grid-template-rows: 200px repeat(3, 200px);
+  grid-template-columns: repeat(4, 150px)
+}
+
+main {
+  width: 100%
 }
