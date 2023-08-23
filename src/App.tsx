@@ -1,10 +1,16 @@
 import React, { useState } from "react";
-import { Artist, Track, Album, SpotifyApi, ItemTypes } from "@spotify/web-api-ts-sdk";
-import Card from "./components/Card";
+import {
+  Artist,
+  Track,
+  Album,
+  SpotifyApi,
+  ItemTypes,
+} from "@spotify/web-api-ts-sdk";
+import TestCard from "./components/Card";
 import "./App.css";
+import Nav from "./components/Nav";
 
 function App() {
-
   // type SearchType = (<Track> | <Artist> | <Album>)
 
   const [searchText, setSearchText] = useState("");
@@ -28,7 +34,8 @@ function App() {
 
   return (
     <main>
-      <form onSubmit={(e) => submit(e)}>
+      <Nav submit={submit} handleChange={setSearchText}/>
+      {/* <form onSubmit={(e) => submit(e)}>
         <input type="text" onChange={(e) => setSearchText(e.target.value)} />
         <select>
           <option value="artist">Artist</option>
@@ -36,10 +43,10 @@ function App() {
           <option value="album">Album</option>
         </select>
         <button>Submit</button>
-      </form>
+      </form> */}
       <div className="results-container">
         {results?.map((res) => (
-          <Card props={res} />
+          <TestCard props={res} />
         ))}
         {/* {results?.map(res=><div>res.name</div>)} */}
       </div>

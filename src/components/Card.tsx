@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
+import Card from "react-bootstrap/Card";
 
-const Card = ({props}) => {
+const TestCard = ({ props }) => {
+  
   return (
-    <div className='card'>{props.name}</div>
-  )
-}
+    <Card key={props.id}>
+      <Card.Img variant="top" src={props.images[1] ? props.images[1].url : '/public/default.jpg'} />
+      <Card.Body>
+        <Card.Title>{props.name}</Card.Title>
+      </Card.Body>
+    </Card>
+  );
+};
 
-export default Card
+export default TestCard;
