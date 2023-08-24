@@ -24,6 +24,7 @@ function App() {
     console.log(items);
     setResults(items.artists.items);
     // settrackRes()
+    //
   }
 
   return (
