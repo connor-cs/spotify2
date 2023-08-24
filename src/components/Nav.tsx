@@ -2,13 +2,19 @@ import { InputGroup } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
+import {AiFillHome} from "react-icons/ai";
 
 
 const Nav = ({ submit, handleChange }) => {
+  
 
+  function goHome() {
+    window.location.href='/'
+  }
   
   return (
-    <div>
+    <div className="d-flex m-2">
+      <AiFillHome size={40}className="home-icon mr-5" onClick={()=>goHome()}/>
       <InputGroup className="mb-3">
         <Form.Control type="text" onChange={(e)=>handleChange(e.target.value)} placeholder="search"/>
 

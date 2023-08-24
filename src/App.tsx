@@ -7,19 +7,19 @@ import {
   SpotifyApi,
   ItemTypes,
 } from "@spotify/web-api-ts-sdk";
-import TestCard from "./components/Card";
 import "./App.css";
 import Nav from "./components/Nav";
 import ArtistPage from "./pages/ArtistPage";
 import Home from "./pages/Home";
 
 function App() {
-  // type SearchType = (<Track> | <Artist> | <Album>)
   const [searchText, setSearchText] = useState("");
-  // const [searchType, setSearchType] = useState<SearchType>()
   const [results, setResults] = useState<Artist[]>([]);
+  // const [searchType, setSearchType] = useState<SearchType>()
   // const [artistResults, setArtistResults] = useState<Artist[]>();
   // const [trackResults, setTrackResults] = useState<Track[]>()
+  
+  // type SearchType = (<Track> | <Artist> | <Album>)
 
   const api = SpotifyApi.withClientCredentials(
     "1553a231a3b74e48bb3dc6efdce3cb72",
@@ -39,18 +39,11 @@ function App() {
       <Nav submit={submit} handleChange={setSearchText} />
       <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Home results={results}/>} />
         <Route path="/artist/:id" element={<ArtistPage />} />
       </Routes>
       </BrowserRouter>
-      {results.length != 0 ? (
-        <div className="results-container">
-          {results?.map((res) => (
-            <TestCard props={res} />
-          ))}
-          {/* {results?.map(res=><div>res.name</div>)} */}
-        </div>
-      ) : null}
+      
     </main>
   );
 }

@@ -1,8 +1,17 @@
 import React from 'react'
+import TestCard from '../components/TestCard'
 
-const Home = () => {
+const Home = ({results}) => {
   return (
-    <div>Home</div>
+    <div className='.bg-dark'>Home
+      {results.length != 0 ? (
+        <div className="results-container">
+          {results?.map((res) => (
+            <TestCard props={res} key={res.id}/>
+          ))}
+        </div>
+      ) : null}
+    </div>
   )
 }
 
