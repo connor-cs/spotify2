@@ -1,17 +1,25 @@
 import React, { useState } from "react";
-import { Artist, Track, Album, SpotifyApi, ItemTypes } from "@spotify/web-api-ts-sdk";
-import Card from "./components/Card";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  Artist,
+  Track,
+  Album,
+  SpotifyApi,
+  ItemTypes,
+} from "@spotify/web-api-ts-sdk";
 import "./App.css";
+import Nav from "./components/Nav";
+import ArtistPage from "./pages/ArtistPage";
+import Home from "./pages/Home";
 
 function App() {
-
-  // type SearchType = (<Track> | <Artist> | <Album>)
-
   const [searchText, setSearchText] = useState("");
-  // const [searchType, setSearchType] = useState<SearchType>()
   const [results, setResults] = useState<Artist[]>([]);
+  // const [searchType, setSearchType] = useState<SearchType>()
   // const [artistResults, setArtistResults] = useState<Artist[]>();
   // const [trackResults, setTrackResults] = useState<Track[]>()
+  
+  // type SearchType = (<Track> | <Artist> | <Album>)
 
   const api = SpotifyApi.withClientCredentials(
     "1553a231a3b74e48bb3dc6efdce3cb72",
@@ -29,21 +37,14 @@ function App() {
 
   return (
     <main>
-      <form onSubmit={(e) => submit(e)}>
-        <input type="text" onChange={(e) => setSearchText(e.target.value)} />
-        <select>
-          <option value="artist">Artist</option>
-          <option value="track">Track</option>
-          <option value="album">Album</option>
-        </select>
-        <button>Submit</button>
-      </form>
-      <div className="results-container">
-        {results?.map((res) => (
-          <Card props={res} />
-        ))}
-        {/* {results?.map(res=><div>res.name</div>)} */}
-      </div>
+      <Nav submit={submit} handleChange={setSearchText} />
+      <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home results={results}/>} />
+        <Route path="/artist/:id" element={<ArtistPage />} />
+      </Routes>
+      </BrowserRouter>
+      
     </main>
   );
 }
