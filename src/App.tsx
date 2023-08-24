@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
   Artist,
   Track,
@@ -9,10 +10,11 @@ import {
 import TestCard from "./components/Card";
 import "./App.css";
 import Nav from "./components/Nav";
+import ArtistPage from "./pages/ArtistPage";
+import Home from "./pages/Home";
 
 function App() {
   // type SearchType = (<Track> | <Artist> | <Album>)
-
   const [searchText, setSearchText] = useState("");
   // const [searchType, setSearchType] = useState<SearchType>()
   const [results, setResults] = useState<Artist[]>([]);
@@ -34,22 +36,21 @@ function App() {
 
   return (
     <main>
-      <Nav submit={submit} handleChange={setSearchText}/>
-      {/* <form onSubmit={(e) => submit(e)}>
-        <input type="text" onChange={(e) => setSearchText(e.target.value)} />
-        <select>
-          <option value="artist">Artist</option>
-          <option value="track">Track</option>
-          <option value="album">Album</option>
-        </select>
-        <button>Submit</button>
-      </form> */}
-      <div className="results-container">
-        {results?.map((res) => (
-          <TestCard props={res} />
-        ))}
-        {/* {results?.map(res=><div>res.name</div>)} */}
-      </div>
+      <Nav submit={submit} handleChange={setSearchText} />
+      <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path="/artist/:id" element={<ArtistPage />} />
+      </Routes>
+      </BrowserRouter>
+      {results.length != 0 ? (
+        <div className="results-container">
+          {results?.map((res) => (
+            <TestCard props={res} />
+          ))}
+          {/* {results?.map(res=><div>res.name</div>)} */}
+        </div>
+      ) : null}
     </main>
   );
 }

@@ -1,7 +1,9 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
+import { useNavigate } from "react-router-dom";
 
 const TestCard = ({ props }) => {
+  const navigate = useNavigate()
   
   return (
     <Card key={props.id}>
