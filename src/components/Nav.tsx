@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import {AiFillHome} from "react-icons/ai";
 
 
-const Nav = ({ submit, handleChange }) => {
+const Nav = ({ submit, handleChange, setType }) => {
   
 
   function goHome() {
@@ -18,12 +18,12 @@ const Nav = ({ submit, handleChange }) => {
       <InputGroup className="mb-3">
         <Form.Control type="text" onChange={(e)=>handleChange(e.target.value)} placeholder="search"/>
 
-        <Dropdown>
+        <Dropdown onSelect={(e)=>setType(e)}>
           <Dropdown.Toggle>Select</Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item>Artist</Dropdown.Item>
-            <Dropdown.Item>Track</Dropdown.Item>
-            <Dropdown.Item>Album</Dropdown.Item>
+            <Dropdown.Item eventKey="artist">Artist</Dropdown.Item>
+            <Dropdown.Item eventKey="track">Track</Dropdown.Item>
+            <Dropdown.Item eventKey="album">Album</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
 

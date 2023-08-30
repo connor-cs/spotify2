@@ -15,9 +15,9 @@ import Home from "./pages/Home";
 function App() {
   const [searchText, setSearchText] = useState("");
   const [results, setResults] = useState<Artist[]>([]);
-  const [searchType, setSearchType] = useState<SearchType>()
-  const [artistResults, setArtistResults] = useState<Artist[]>();
-  const [trackResults, setTrackResults] = useState<Track[]>()
+  const [searchType, setSearchType] = useState('')
+  // const [artistResults, setArtistResults] = useState<Artist[]>();
+  // const [trackResults, setTrackResults] = useState<Track[]>()
 
   // type SearchType = (<Track> | <Artist> | <Album>)
 
@@ -31,7 +31,7 @@ function App() {
 
   async function submit(e: React.BaseSyntheticEvent) {
     e.preventDefault();
-    const items = await api.search(searchText, ["artist"]);
+    const items = await api.search(searchText, []);
     console.log(items);
     setResults(items.artists.items);
     // settrackRes()
@@ -41,7 +41,7 @@ function App() {
 
   return (
     <main>
-      <Nav submit={submit} handleChange={setSearchText} />
+      <Nav submit={submit} handleChange={setSearchText} setType={setSearchType}/>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home results={results} />} />
