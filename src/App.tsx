@@ -17,7 +17,7 @@ function App() {
   const [results, setResults] = useState<Artist[]>([]);
   const [searchType, setSearchType] = useState('')
   // const [artistResults, setArtistResults] = useState<Artist[]>();
-  // const [trackResults, setTrackResults] = useState<Track[]>()
+  const [trackResults, setTrackResults] = useState<Track[]>()
 
   // type SearchType = (<Track> | <Artist> | <Album>)
 
@@ -28,20 +28,32 @@ function App() {
   );
 
   console.log(results);
+  console.log({searchType})
 
-  async function submit(e: React.BaseSyntheticEvent) {
+  async function submit(e: React.BaseSyntheticEvent, searchType: string) {
     e.preventDefault();
-    const items = await api.search(searchText, []);
-    console.log(items);
-    setResults(items.artists.items);
-    // settrackRes()
-    //
+    console.log({searchType}, 'fun')
+    console.log(searchType=='track')
+    
+    if (searchType === 'artist') {
+      const items = await api.search(searchText, ['artist']);
+      setResults(items.artists.items);
+    }
+
+    if (searchType === 'track') {
+      const items = await api.search(searchText, ['track']);
+      console.log({items})
+    }
+
+    else return
+    
     console.log(results)
   }
+  
 
   return (
     <main>
-      <Nav submit={submit} handleChange={setSearchText} setType={setSearchType}/>
+      <Nav submit={submit} handleChange={setSearchText} searchType={searchType} setSearchType={setSearchType}/>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home results={results} />} />
