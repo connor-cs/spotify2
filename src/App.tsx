@@ -28,26 +28,32 @@ function App() {
   );
 
   console.log(results);
-  console.log({searchType})
+  // console.log({searchType})
 
-  async function submit(e: React.BaseSyntheticEvent, searchType: string) {
-    e.preventDefault();
-    console.log({searchType}, 'fun')
-    console.log(searchType=='track')
+  // async function submit(e: React.BaseSyntheticEvent, searchType: string) {
+  //   e.preventDefault();
+  //   console.log({searchType}, 'fun')
+  //   console.log(searchType=='track')
     
-    if (searchType === 'artist') {
-      const items = await api.search(searchText, ['artist']);
-      setResults(items.artists.items);
-    }
+  //   if (searchType === 'artist') {
+  //     const items = await api.search(searchText, ['artist']);
+  //     setResults(items.artists.items);
+  //   }
 
-    if (searchType === 'track') {
-      const items = await api.search(searchText, ['track']);
-      console.log({items})
-    }
+  //   if (searchType === 'track') {
+  //     const items = await api.search(searchText, ['track']);
+  //     console.log({items})
+  //   }
 
-    else return
+  //   else return
     
-    console.log(results)
+  //   console.log(results)
+  // }
+
+  async function submit(e: React.SyntheticEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const items = await api.artists(searchText, ['artist'])
+    setResults(items.artists.items)
   }
   
 
@@ -57,7 +63,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home results={results} />} />
-          <Route path="/artist/:id" element={<ArtistPage />} />
+          <Route path="/artist/:name" element={<ArtistPage />} />
         </Routes>
       </BrowserRouter>
     </main>

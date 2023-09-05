@@ -6,7 +6,7 @@ const TestCard = ({ props }) => {
   const navigate = useNavigate()
 
   function nav() {
-    navigate(`/artist/${props.id}`)
+    navigate(`/artist/${props.name}`)
   }
   
   return (

@@ -1,9 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card'
+import { AiFillPauseCircle } from 'react-icons/ai'
+import { useParams } from 'react-router-dom'
+import { SpotifyApi } from '@spotify/web-api-ts-sdk'
 
 const ArtistPage = () => {
+  const [loaded, setLoaded] = useState(false)
+  const [albums, setAlbums] = useState([])
+
+  const artistName = useParams()
+  console.log({artistName})
+
+  const api = SpotifyApi.withClientCredentials(
+    "1553a231a3b74e48bb3dc6efdce3cb72",
+    "37da88f137294d5a9f6a7ea57f0d4be9"
+  );
+
+  async function getArtistAlbums(artistName) {
+    const albumsList = api.artists(artistName, ['artist'])
+    setAlbums(albumsList)
+  }
+
+  useEffect(()=> {
+    getArtistAlbums(artistName)
+  }, [])
+  
   return (
     <div>
+      <h1>artistName</h1>
       <div className="albums-container dp-flex flex-row justify-content-center">
         {/* <div className="album border border-2 border-white p-4 text-light">album 1</div>
         <div className="album border border-2 border-white p-4 text-light">album 2</div>
