@@ -52,7 +52,7 @@ function App() {
 
   async function submit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault()
-    const items = await api.artists(searchText, ['artist'])
+    const items = await api.search(searchText, ['artist'])
     setResults(items.artists.items)
   }
   
@@ -63,7 +63,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home results={results} />} />
-          <Route path="/artist/:name" element={<ArtistPage />} />
+          <Route path="/artist/:id" element={<ArtistPage />} />
         </Routes>
       </BrowserRouter>
     </main>

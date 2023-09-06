@@ -7,22 +7,24 @@ import { SpotifyApi } from '@spotify/web-api-ts-sdk'
 const ArtistPage = () => {
   const [loaded, setLoaded] = useState(false)
   const [albums, setAlbums] = useState([])
+  const [artistInfo, setArtistInfo] = useState()
 
-  const artistName = useParams()
-  console.log({artistName})
+  const artistID = useParams()
+  console.log({artistID})
 
   const api = SpotifyApi.withClientCredentials(
     "1553a231a3b74e48bb3dc6efdce3cb72",
     "37da88f137294d5a9f6a7ea57f0d4be9"
   );
 
-  async function getArtistAlbums(artistName) {
-    const albumsList = api.artists(artistName, ['artist'])
-    setAlbums(albumsList)
+  async function getArtistInfo(artistID) {
+    const albumsList = await api.artists.get([`${artistID}`])
+    console.log(albumsList)
   }
 
   useEffect(()=> {
-    getArtistAlbums(artistName)
+    
+    getArtistInfo({artistID})
   }, [])
   
   return (
