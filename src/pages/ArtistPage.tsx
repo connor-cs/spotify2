@@ -7,7 +7,7 @@ import { SpotifyApi } from '@spotify/web-api-ts-sdk'
 const ArtistPage = () => {
   const [loaded, setLoaded] = useState(false)
   const [albums, setAlbums] = useState([])
-  const [artistInfo, setArtistInfo] = useState()
+  const [artistInfo, setArtistInfo] = useState(null)
 
   const {artistID} = useParams()
   console.log({artistID})
@@ -17,15 +17,19 @@ const ArtistPage = () => {
     "37da88f137294d5a9f6a7ea57f0d4be9"
   );
 
-  async function getArtistInfo(artistID) {
-    const albumsList = await api.artists.get([`${artistID}`])
-    console.log(albumsList)
+  async function getArtistInfo() {
+    try {
+      const artist = await api.artists.get(artistID);
+      setArtistInfo(artist); // Set the artist info once fetched
+      setLoaded(true);
+    } catch (error) {
+      console.error('Error fetching artist info', error);
+    }
   }
 
-  useEffect(()=> {
-    
-    getArtistInfo({artistID})
-  }, [])
+  useEffect(() => {
+    getArtistInfo(); // Fetch artist info when artistID changes
+  }, [artistID]); // Add artistID as a dependency
   
   return (
     <div>
