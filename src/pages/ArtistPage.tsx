@@ -9,7 +9,7 @@ const ArtistPage = () => {
   const [albums, setAlbums] = useState([])
   const [artistInfo, setArtistInfo] = useState()
 
-  const artistID = useParams()
+  const {artistID} = useParams()
   console.log({artistID})
 
   const api = SpotifyApi.withClientCredentials(
