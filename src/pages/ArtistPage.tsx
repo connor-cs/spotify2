@@ -10,32 +10,24 @@ const ArtistPage = () => {
     "37da88f137294d5a9f6a7ea57f0d4be9"
   );
   
-  const [loaded, setLoaded] = useState(false)
-  const [albums, setAlbums] = useState([])
-  const [artistInfo, setArtistInfo] = useState(null)
-  const [id, setId] = useState<string>('')
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const [artistInfo, setArtistInfo] = useState<ArtistInfo | null>(null);
+  const { id } = useParams<{ id: string }>();
 
-  //ask about this
-  const params = useParams()
-  const artistId= params['id']
-  console.log(artistId)
-  setId(artistId)
-  console.log({id})
-  
-
-  async function getArtistInfo(artistId) {
+  async function getArtistInfo(artistId: string) {
     try {
-      const artist = await api.artists.get(id);
-      setArtistInfo(artist); // Set the artist info once fetched
+      const artist = await api.artists.get(artistId);
+      setArtistInfo(artist);
       setLoaded(true);
+      console.log(artist)
     } catch (error) {
       console.error('Error fetching artist info', error);
     }
   }
 
   useEffect(() => {
-    getArtistInfo(artistId); // Fetch artist info when artistID changes
-  }, []); // Add artistID as a dependency
+    getArtistInfo(id);
+  }, [id]);
   
   return (
     <div>
@@ -54,12 +46,6 @@ const ArtistPage = () => {
           <Card.Img variant="top" src={'/default'} />
           <Card.Body>
             <Card.Title>Album 2</Card.Title>
-          </Card.Body>
-        </Card>
-        <Card key={3} className="card">
-          <Card.Img variant="top" src={'/default'} />
-          <Card.Body>
-            <Card.Title>Album 3</Card.Title>
           </Card.Body>
         </Card>
       </div>
