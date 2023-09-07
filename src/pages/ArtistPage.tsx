@@ -5,21 +5,27 @@ import { useParams } from 'react-router-dom'
 import { SpotifyApi } from '@spotify/web-api-ts-sdk'
 
 const ArtistPage = () => {
-  const [loaded, setLoaded] = useState(false)
-  const [albums, setAlbums] = useState([])
-  const [artistInfo, setArtistInfo] = useState(null)
-
-  const {artistID} = useParams()
-  console.log({artistID})
-
   const api = SpotifyApi.withClientCredentials(
     "1553a231a3b74e48bb3dc6efdce3cb72",
     "37da88f137294d5a9f6a7ea57f0d4be9"
   );
+  
+  const [loaded, setLoaded] = useState(false)
+  const [albums, setAlbums] = useState([])
+  const [artistInfo, setArtistInfo] = useState(null)
+  const [id, setId] = useState<string>('')
 
-  async function getArtistInfo() {
+  //ask about this
+  const params = useParams()
+  const artistId= params['id']
+  console.log(artistId)
+  setId(artistId)
+  console.log({id})
+  
+
+  async function getArtistInfo(artistId) {
     try {
-      const artist = await api.artists.get(artistID);
+      const artist = await api.artists.get(id);
       setArtistInfo(artist); // Set the artist info once fetched
       setLoaded(true);
     } catch (error) {
@@ -28,8 +34,8 @@ const ArtistPage = () => {
   }
 
   useEffect(() => {
-    getArtistInfo(); // Fetch artist info when artistID changes
-  }, [artistID]); // Add artistID as a dependency
+    getArtistInfo(artistId); // Fetch artist info when artistID changes
+  }, []); // Add artistID as a dependency
   
   return (
     <div>
