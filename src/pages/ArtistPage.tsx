@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card'
+import Image from 'react-bootstrap/Image'
 import { AiFillPauseCircle } from 'react-icons/ai'
 import { useParams } from 'react-router-dom'
 import { SpotifyApi } from '@spotify/web-api-ts-sdk'
+import { Market } from '@spotify/web-api-ts-sdk'
 
 const ArtistPage = () => {
   const api = SpotifyApi.withClientCredentials(
@@ -11,8 +13,10 @@ const ArtistPage = () => {
   );
   
   const [loaded, setLoaded] = useState<boolean>(false);
-  const [artistInfo, setArtistInfo] = useState<ArtistInfo | null>(null);
+  const [artistInfo, setArtistInfo] = useState<null>(null);
+  const [topTracks, setTopTracks] = useState<[]>(null)
   const { id } = useParams<{ id: string }>();
+  //should I create a type called ArtistInfo??
 
   async function getArtistInfo(artistId: string) {
     try {
@@ -25,29 +29,27 @@ const ArtistPage = () => {
     }
   }
 
+  async function getTopTracks(artistId: string, market: Market) {
+    const tracks = await api.artists.topTracks(artistId, market)
+    setTopTracks(tracks)
+    console.log(tracks)
+  }
+
   useEffect(() => {
     getArtistInfo(id);
+    getTopTracks(id, 'US')
   }, [id]);
   
   return (
     <div>
-      <h1>artistName</h1>
+      <div className="header">
+        {artistInfo ? <Image src={artistInfo.images[1].url} rounded /> : null}
+        {artistInfo ? <h1 className='text-light'>{artistInfo.name}</h1> : null}
+      </div>
       <div className="albums-container dp-flex flex-row justify-content-center">
         {/* <div className="album border border-2 border-white p-4 text-light">album 1</div> ////
         <div className="album border border-2 border-white p-4 text-light">album 2</div>
         <div className="album border border-2 border-white p-4 text-light">album 3</div> */}
-        <Card key={1} className="card">
-          <Card.Img variant="top" src={'/default'} />
-          <Card.Body>
-            <Card.Title>Album 1</Card.Title>
-          </Card.Body>
-        </Card>
-        <Card key={2} className="card">
-          <Card.Img variant="top" src={'/default'} />
-          <Card.Body>
-            <Card.Title>Album 2</Card.Title>
-          </Card.Body>
-        </Card>
       </div>
     </div>
   )
