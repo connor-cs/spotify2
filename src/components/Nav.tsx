@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import {AiFillHome} from "react-icons/ai";
+import Login from "./Login";
 
 
 const Nav = ({ submit, handleChange, setSearchType, searchType}) => {
@@ -28,6 +29,7 @@ const Nav = ({ submit, handleChange, setSearchType, searchType}) => {
         </Dropdown>
 
         <Button type="submit" onClick={(e, searchType)=>submit(e, searchType)}>Search</Button>
+        <Button onClick={()=>Login()}>Log in</Button>
       </InputGroup>
     </div>
   );

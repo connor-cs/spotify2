@@ -52,6 +52,7 @@ function App() {
 
   async function submit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault()
+    
     const items = await api.search(searchText, ['artist'])
     setResults(items.artists.items)
   }
