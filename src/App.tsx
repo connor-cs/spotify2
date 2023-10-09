@@ -10,6 +10,7 @@ import {
 import "./App.css";
 import Nav from "./components/Nav";
 import ArtistPage from "./pages/ArtistPage";
+import AccountPage from "./pages/AccountPage"
 import Home from "./pages/Home";
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home results={results} />} />
           <Route path="/artist/:id" element={<ArtistPage />} />
+          <Route path="/account" element={<AccountPage />} />
         </Routes>
       </BrowserRouter>
     </main>

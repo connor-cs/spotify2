@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import {AiFillHome} from "react-icons/ai";
-import Login from "./Login";
+import {Login} from './Login.js'
 
 
 const Nav = ({ submit, handleChange, setSearchType, searchType}) => {
