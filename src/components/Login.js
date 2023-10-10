@@ -38,11 +38,12 @@ async function getToken(body) {
     }
     const data = await response.json();
     localStorage.setItem("access_token", data.access_token);
+    window.location.href="/account"
   } catch (error) {
     console.error("Error:", error);
   }
 
-  window.location.href="/account"
+  
 }
 
 export function Login() {
@@ -85,7 +86,4 @@ export function Login() {
 
   getToken(body);
 
-  const token = localStorage.getItem("access_token");
-
-  getProfile(token);
 }
