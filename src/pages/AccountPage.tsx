@@ -4,10 +4,11 @@ import {
   getTopTracks,
   getTopArtists,
 } from "../components/GetUserInfoFunctions.js";
+import {Artist} from '@spotify/web-api-ts-sdk'
 
 const AccountPage = () => {
   const [userProfile, setUserProfile] = useState<Profile>();
-  const [artists, setArtists] = useState()
+  const [artists, setArtists] = useState<Artist[]>([])
   type Profile = {
     display_name: string;
     id: string;
@@ -15,6 +16,8 @@ const AccountPage = () => {
     images: [];
     followers: number;
   };
+  
+
 
   async function getProfile() {
     const accessToken = localStorage.getItem("access_token");
