@@ -38,12 +38,10 @@ async function getToken(body) {
     }
     const data = await response.json();
     localStorage.setItem("access_token", data.access_token);
-    window.location.href="/account"
+    window.location.href = "/account";
   } catch (error) {
     console.error("Error:", error);
   }
-
-  
 }
 
 export function Login() {
@@ -54,7 +52,8 @@ export function Login() {
 
   generateCodeChallenge(codeVerifier).then((codeChallenge) => {
     let state = generateRandomString(16);
-    let scope = "user-read-private user-read-email";
+    let scope =
+      "user-read-private user-read-email user-read-currently-playing streaming user-read-playback-state user-read-recently-played user-modify-playback-state user-top-read";
 
     localStorage.setItem("code_verifier", codeVerifier);
 
@@ -85,5 +84,4 @@ export function Login() {
   });
 
   getToken(body);
-
 }
