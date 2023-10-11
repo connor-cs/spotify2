@@ -11,7 +11,7 @@ const TestCard = ({ props }) => {
   
   return (
     <Card key={props.id} className="card" onClick={()=>nav()}>
-      <Card.Img variant="top" src={props.images[1] ? props.images[1].url : '/default.jpg'} />
+      <Card.Img variant="top" src={props.images[2] ? props.images[2].url : '/default.jpg'} />
       <Card.Body>
         <Card.Title>{props.name}</Card.Title>
       </Card.Body>

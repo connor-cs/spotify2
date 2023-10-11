@@ -24,8 +24,8 @@ export async function getTopArtists() {
   return data.items.slice(0,6)
 }
 
-export async function getUserPlaylists(token) {
-  const response = await fetch('https://api.spotify.com/v1/users/{user_id}/playlists', {
+export async function getUserPlaylists(token, id) {
+  const response = await fetch(`https://api.spotify.com/v1/users/${id}/playlists`, {
     headers: {
       Authorization: "Bearer " + token
     }

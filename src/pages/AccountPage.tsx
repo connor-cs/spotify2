@@ -39,8 +39,8 @@ const AccountPage = () => {
     const topTracks = await getTopTracks();
     setTracks(topTracks);
 
-    const userPlaylists = await getUserPlaylists();
-    setPlaylists(userPlaylists);
+    // const userPlaylists = await getUserPlaylists(accessToken);
+    // setPlaylists(userPlaylists);
   }
 
   useEffect(() => {
@@ -57,7 +57,11 @@ const AccountPage = () => {
     <div className="container-lg border border-primary">
       <div className="row">
         <div className="sidebar col bg-dark ">
-          <Sidebar playlists={playlists} />
+          {!playlists ? (
+            <h3 className="text-light">Loading playlists...</h3>
+          ) : (
+            <Sidebar playlists={playlists} />
+          )}
         </div>
         <div className="profile bg-dark col container-lg border border-primary">
           <img
@@ -67,11 +71,23 @@ const AccountPage = () => {
           <h1 className="text-light">{userProfile?.display_name}</h1>
           <div className="tracks-container container text-light border border-secondary">
             <h3>Top tracks</h3>
-            {}
+            <div className="d-flex flex-column">
+              {tracks?.map((track) => (
+                <div className="text-start">
+                  <p className="justify-content-start">{track.name}</p>
+                </div>
+              ))}
+            </div>
           </div>
           <div className="artists-container text-light border border-secondary container">
             <h3 className="col">Top artists</h3>
-            {}
+            <div className="row">
+              {artists?.map((artist) => (
+                <div className="col">
+                  <TestCard props={artist} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
