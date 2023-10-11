@@ -3,12 +3,16 @@ import Sidebar from "../components/Sidebar.js";
 import {
   getTopTracks,
   getTopArtists,
+  getUserPlaylists,
 } from "../components/GetUserInfoFunctions.js";
-import {Artist} from '@spotify/web-api-ts-sdk'
+import TestCard from "../components/TestCard.js";
+import { Artist, Track } from "@spotify/web-api-ts-sdk";
 
 const AccountPage = () => {
   const [userProfile, setUserProfile] = useState<Profile>();
-  const [artists, setArtists] = useState<Artist[]>([])
+  const [artists, setArtists] = useState<Artist[]>([]);
+  const [tracks, setTracks] = useState();
+  const [playlists, setPlaylists] = useState();
   type Profile = {
     display_name: string;
     id: string;
@@ -16,36 +20,44 @@ const AccountPage = () => {
     images: [];
     followers: number;
   };
-  
 
-
-  async function getProfile() {
+  async function getProfileData() {
     const accessToken = localStorage.getItem("access_token");
+    //get user data:
     const response = await fetch("https://api.spotify.com/v1/me", {
       headers: {
         Authorization: "Bearer " + accessToken,
       },
     });
-    const data = await response.json();
-    console.log(data);
-    setUserProfile(data);
+    const userData = await response.json();
+    console.log(userData);
+    setUserProfile(userData);
+
+    const topArtists = await getTopArtists();
+    setArtists(topArtists);
+
+    const topTracks = await getTopTracks();
+    setTracks(topTracks);
+
+    const userPlaylists = await getUserPlaylists();
+    setPlaylists(userPlaylists);
   }
 
   useEffect(() => {
-    getProfile();
+    getProfileData();
     console.log(userProfile);
-    getTopTracks();
-    getTopArtists();
+    console.log("tracks", tracks);
+    console.log("artists", artists);
+    console.log("playlists", playlists);
   }, []);
 
-  console.log(userProfile);
   return !userProfile ? (
     <h1>Loading...</h1>
   ) : (
     <div className="container-lg border border-primary">
       <div className="row">
         <div className="sidebar col bg-dark ">
-          <Sidebar />
+          <Sidebar playlists={playlists} />
         </div>
         <div className="profile bg-dark col container-lg border border-primary">
           <img
