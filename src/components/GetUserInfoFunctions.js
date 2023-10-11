@@ -8,7 +8,7 @@ export async function getTopTracks() {
     }
   })
   const data = await response.json()
-  console.log('top tracks:', data)
+  console.log('top tracks:', data.items.slice(0,6))
 }
 
 export async function getTopArtists() {
