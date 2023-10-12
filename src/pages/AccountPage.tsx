@@ -4,8 +4,9 @@ import {
   getTopTracks,
   getTopArtists,
   getUserPlaylists,
-} from "../components/GetUserInfoFunctions.js";
+} from "../utils/GetUserInfoFunctions.js";
 import TestCard from "../components/TestCard.js";
+import SongRow from "../components/SongRow.js";
 import { Artist, Track } from "@spotify/web-api-ts-sdk";
 
 const AccountPage = () => {
@@ -46,17 +47,18 @@ const AccountPage = () => {
   useEffect(() => {
     getProfileData();
     console.log(userProfile);
-    console.log("tracks", tracks);
-    console.log("artists", artists);
+
     console.log("playlists", playlists);
   }, []);
+  console.log("tracks", tracks);
+  console.log("artists", artists);
 
   return !userProfile ? (
     <h1>Loading...</h1>
   ) : (
     <div className="container-lg border border-primary">
       <div className="row">
-        <div className="sidebar col bg-dark ">
+        <div className="sidebar col bg-dark w-30">
           {!playlists ? (
             <h3 className="text-light">Loading playlists...</h3>
           ) : (
@@ -73,8 +75,8 @@ const AccountPage = () => {
             <h3>Top tracks</h3>
             <div className="d-flex flex-column">
               {tracks?.map((track) => (
-                <div className="text-start">
-                  <p className="justify-content-start">{track.name}</p>
+                <div key={track.id}>
+                  <SongRow track={track} />
                 </div>
               ))}
             </div>
@@ -83,7 +85,7 @@ const AccountPage = () => {
             <h3 className="col">Top artists</h3>
             <div className="row">
               {artists?.map((artist) => (
-                <div className="col">
+                <div key={artist.id} className="col">
                   <TestCard props={artist} />
                 </div>
               ))}

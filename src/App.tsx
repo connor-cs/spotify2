@@ -12,6 +12,7 @@ import Nav from "./components/Nav";
 import ArtistPage from "./pages/ArtistPage";
 import AccountPage from "./pages/AccountPage"
 import Home from "./pages/Home";
+import Footer from "./components/Footer";
 
 function App() {
   const [searchText, setSearchText] = useState("");
@@ -69,6 +70,7 @@ function App() {
           <Route path="/account" element={<AccountPage />} />
         </Routes>
       </BrowserRouter>
+      <Footer />
     </main>
   );
 }

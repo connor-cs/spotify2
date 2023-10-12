@@ -97,3 +97,11 @@ main {
   color: white;
   cursor: pointer;
 }
+
+.songRow {
+
+}
+.songRow-album {
+  height: 40px !important;
+  width: 40px !important
+}
