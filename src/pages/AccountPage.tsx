@@ -12,7 +12,7 @@ import { Artist, Track } from "@spotify/web-api-ts-sdk";
 const AccountPage = () => {
   const [userProfile, setUserProfile] = useState<Profile>();
   const [artists, setArtists] = useState<Artist[]>([]);
-  const [tracks, setTracks] = useState();
+  const [tracks, setTracks] = useState<Track[]>([]);
   const [playlists, setPlaylists] = useState();
   type Profile = {
     display_name: string;
