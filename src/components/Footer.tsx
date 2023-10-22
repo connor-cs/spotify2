@@ -95,10 +95,6 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
       }));
 
 
-
-
-
-
       player.connect().then((success) => {
         if (success) {
           console.log("Connected to spotify player!")
@@ -119,7 +115,7 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
       </div>
       <div className="footer-center">
         <IoPlaySkipBack className="footer-icon m-2" size={50} />
-        <AiFillPlayCircle className="footer-icon m-2" size={50} onClick={()=>Spotifyplayer.togglePlay()}/>
+        <AiFillPlayCircle className="footer-icon m-2" size={50} onClick={()=>handlePlay()}/>
         <IoPlaySkipForward className="footer-icon m-2" size={50} />
       </div>
       <div className="footer-right">
