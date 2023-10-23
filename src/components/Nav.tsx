@@ -5,13 +5,19 @@ import Button from "react-bootstrap/Button";
 import {AiFillHome} from "react-icons/ai";
 // import {Login} from '../utils/Login.js'
 import {Login} from '../utils/Login.js'
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 const Nav = ({ submit, handleChange, setSearchType, searchType}) => {
-  
+  const navigate = useNavigate()
 
   function goHome() {
-    window.location.href='/'
+    navigate('/')
+  }
+
+  function handleLogin() {
+    Login()
+    navigate('/account')
   }
   
   return (
@@ -30,7 +36,7 @@ const Nav = ({ submit, handleChange, setSearchType, searchType}) => {
         </Dropdown>
 
         <Button type="submit" onClick={(e, searchType)=>submit(e, searchType)}>Search</Button>
-        <Button onClick={()=>Login()}>Log in</Button>
+        <Button onClick={()=>handleLogin()}>Log in</Button>
       </InputGroup>
     </div>
   );

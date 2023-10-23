@@ -3,7 +3,7 @@ import TestCard from '../components/TestCard'
 
 const Home = ({results}) => {
   return (
-    <div className='.bg-dark'>Home
+    <div className='container .bg-dark'>Home
       {results.length != 0 ? (
         <div className="results-container">
           {results?.map((res) => (

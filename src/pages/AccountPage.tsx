@@ -59,11 +59,12 @@ const AccountPage = () => {
     <div className="container-lg border border-primary">
       <div className="row">
         <div className="sidebar col bg-dark w-30">
-          {!playlists ? (
+          {/* {!playlists ? (
             <h3 className="text-light">Loading playlists...</h3>
           ) : (
             <Sidebar playlists={playlists} />
-          )}
+          )} */}
+          <Sidebar />
         </div>
         <div className="profile bg-dark col container-lg border border-primary">
           <img

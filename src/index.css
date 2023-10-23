@@ -73,6 +73,11 @@ button:focus-visible {
   }
 }
 
+aside {
+  display: flex;
+  flex-direction: column;
+}
+
 .card {
   border: 2px solid black;
   padding: 1rem;
@@ -82,6 +87,10 @@ button:focus-visible {
   cursor: pointer;
 }
 
+.container {
+
+}
+
 .results-container {
   border: 2px solid red;
   display: grid;
@@ -89,9 +98,7 @@ button:focus-visible {
   grid-template-columns: repeat(4, 150px)
 }
 
-main {
-  width: 100%
-}
+
 
 .home-icon {
   color: white;
@@ -129,4 +136,26 @@ main {
 .songRow-album {
   height: 40px !important;
   width: 40px !important
+}
+
+.spot-logo {
+  height: 4rem;
+  width: auto
+}
+
+.ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.ul > li {
+  margin: 0.5em;
+  display: flex;
+        gap: 1rem;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+        &:hover {
+          color: white;
 }
