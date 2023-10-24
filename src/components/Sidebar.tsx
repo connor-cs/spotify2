@@ -1,6 +1,7 @@
 import { Image } from "react-bootstrap";
 import { MdHomeFilled, MdSearch } from "react-icons/md";
 import { IoLibrary } from "react-icons/io5";
+import Playlists from "./Playlist";
 
 const Sidebar = ({ playlists }) => {
   return (
@@ -12,21 +13,25 @@ const Sidebar = ({ playlists }) => {
           alt="spotify"
         />
       </div>
-      <div className="playlists-container text-light">
-      <ul className="ul">
-        <li>
-          <MdHomeFilled />
-          <h5>Home</h5>
-        </li>
-        <li>
-          <MdSearch />
-          <h5>Search</h5>
-        </li>
-        <li>
-          <IoLibrary />
-          <h5>Library</h5>
-        </li>
-      </ul>
+      <div className="sidebar-top text-light">
+        <ul className="ul">
+          <li>
+            <MdHomeFilled />
+            <h5>Home</h5>
+          </li>
+          <li>
+            <MdSearch />
+            <h5>Search</h5>
+          </li>
+          <li>
+            <IoLibrary />
+            <h5>Library</h5>
+          </li>
+        </ul>
+        <div className="playlist-container">
+          <h5>Your Playlists</h5>
+          <Playlists playlists={playlists} />
+        </div>
       </div>
     </aside>
   );

@@ -31,7 +31,7 @@ const AccountPage = () => {
       },
     });
     const userData = await response.json();
-    console.log(userData);
+    console.log({userData});
     setUserProfile(userData);
 
     const topArtists = await getTopArtists();
@@ -40,16 +40,16 @@ const AccountPage = () => {
     const topTracks = await getTopTracks();
     setTracks(topTracks);
 
-    // const userPlaylists = await getUserPlaylists(accessToken);
-    // setPlaylists(userPlaylists);
+    const userPlaylists = await getUserPlaylists(accessToken, userProfile.id);
+    setPlaylists(userPlaylists);
   }
 
   useEffect(() => {
     getProfileData();
-    console.log(userProfile);
-
+    console.log({userProfile});
     console.log("playlists", playlists);
   }, []);
+
   console.log("tracks", tracks);
   console.log("artists", artists);
 
@@ -59,12 +59,12 @@ const AccountPage = () => {
     <div className="container-lg border border-primary">
       <div className="row">
         <div className="sidebar col bg-dark w-30">
-          {/* {!playlists ? (
+          {!playlists ? (
             <h3 className="text-light">Loading playlists...</h3>
           ) : (
             <Sidebar playlists={playlists} />
-          )} */}
-          <Sidebar />
+          )}
+          {/* <Sidebar playlists={playlists}/> */}
         </div>
         <div className="profile bg-dark col container-lg border border-primary">
           <img

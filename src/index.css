@@ -110,6 +110,31 @@ aside {
   cursor: pointer;
 }
 
+.playlist {
+  background-color: #121212;
+  width: 100%;
+}
+
+.playlist> ul {
+  margin: 0;
+}
+
+.playlist>ul>li:hover {
+  background-color: #1a1a1a;
+}
+
+.playlist-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+}
+
+.playlist-name {
+  width: 100%;
+  padding: 1rem;
+}
+
 .songRow {
   margin-left: 20px !important;
   padding: 20px !important;
@@ -142,7 +167,9 @@ aside {
   height: 4rem;
   width: auto
 }
-
+ul {
+  list-style-type: none;
+}
 .ul {
   list-style-type: none;
   display: flex;
