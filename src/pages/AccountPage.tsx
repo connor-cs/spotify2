@@ -13,7 +13,7 @@ const AccountPage = () => {
   const [userProfile, setUserProfile] = useState<Profile>(null);
   const [artists, setArtists] = useState<Artist[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
-  const [playlists, setPlaylists] = useState();
+  const [playlists, setPlaylists] = useState<any[]>([]);
   type Profile = {
     display_name: string;
     id: string;
@@ -33,29 +33,37 @@ const AccountPage = () => {
     });
     const userData = await response.json();
     console.log({ userData });
-    setUserProfile(userData);
 
+    setUserProfile(userData);
     const topArtists = await getTopArtists();
     setArtists(topArtists);
-
     const topTracks = await getTopTracks();
     setTracks(topTracks);
-
-    const userPlaylists = await getUserPlaylists(accessToken, userProfile.id);
-    setPlaylists(userPlaylists);
   }
 
   useEffect(() => {
     getProfileData();
     console.log({ userProfile });
-    console.log("playlists", playlists);
+
   }, []);
 
-  console.log("tracks", tracks);
-  console.log("artists", artists);
+  useEffect(() => {
+    if (userProfile && userProfile.id) {
+      getUserPlaylists(accessToken, userProfile.id)
+        .then((userPlaylists) => {
+          setPlaylists(userPlaylists);
+        })
+        .catch((error) => {
+          console.error("Error fetching playlists:", error);
+        });
+    }
+  }, [userProfile, accessToken])
+
+  // console.log("tracks", tracks);
+  // console.log("artists", artists);
 
   return !userProfile ? (
-    <h1>Loading...</h1>
+    <h1>Loading profile...</h1>
   ) : (
     <div className="container-lg border border-primary">
       <div className="row">
