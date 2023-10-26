@@ -78,6 +78,11 @@ aside {
   flex-direction: column;
 }
 
+.artist-image {
+  max-height: 150px;
+  max-width: 150px
+}
+
 .card {
   border: 2px solid black;
   padding: 1rem;
@@ -129,7 +134,7 @@ aside {
   flex-direction: column;
   align-items: start;
   width: 100%;
-  margin-top: .5rem;
+  margin: none; 
 }
 
 

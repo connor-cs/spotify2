@@ -10,7 +10,7 @@ import SongRow from "../components/SongRow.js";
 import { Artist, Track } from "@spotify/web-api-ts-sdk";
 
 const AccountPage = () => {
-  const [userProfile, setUserProfile] = useState<Profile>();
+  const [userProfile, setUserProfile] = useState<Profile>(null);
   const [artists, setArtists] = useState<Artist[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
   const [playlists, setPlaylists] = useState();
@@ -21,6 +21,7 @@ const AccountPage = () => {
     images: [];
     followers: number;
   };
+  const accessToken = localStorage.getItem("access_token");
 
   async function getProfileData() {
     const accessToken = localStorage.getItem("access_token");
@@ -31,7 +32,7 @@ const AccountPage = () => {
       },
     });
     const userData = await response.json();
-    console.log({userData});
+    console.log({ userData });
     setUserProfile(userData);
 
     const topArtists = await getTopArtists();
@@ -46,7 +47,7 @@ const AccountPage = () => {
 
   useEffect(() => {
     getProfileData();
-    console.log({userProfile});
+    console.log({ userProfile });
     console.log("playlists", playlists);
   }, []);
 
