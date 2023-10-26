@@ -62,8 +62,8 @@ function App() {
 
   return (
     <main>
-      <Nav submit={submit} handleChange={setSearchText} searchType={searchType} setSearchType={setSearchType}/>
       <BrowserRouter>
+      <Nav submit={submit} handleChange={setSearchText} searchType={searchType} setSearchType={setSearchType}/>
         <Routes>
           <Route path="/" element={<Home results={results} />} />
           <Route path="/artist/:id" element={<ArtistPage />} />
