@@ -6,10 +6,11 @@ import {AiFillHome} from "react-icons/ai";
 // import {Login} from '../utils/Login.js'
 import {Login} from '../utils/Login.js'
 import { Navigate, useNavigate } from "react-router-dom";
-
+import useAuthStore from '../context/zustand'
 
 const Nav = ({ submit, handleChange, setSearchType, searchType}) => {
   const navigate = useNavigate()
+  const {isAuthenticated, accessToken} = useAuthStore()
 
   function goHome() {
     navigate('/')
@@ -37,6 +38,7 @@ const Nav = ({ submit, handleChange, setSearchType, searchType}) => {
 
         <Button type="submit" onClick={(e, searchType)=>submit(e, searchType)}>Search</Button>
         <Button onClick={()=>handleLogin()}>Log in</Button>
+        {isAuthenticated ? <Button onClick={()=>console.log('authenticated')}>Test</Button> : null}
       </InputGroup>
     </div>
   );

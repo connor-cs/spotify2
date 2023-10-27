@@ -13,6 +13,8 @@ import ArtistPage from "./pages/ArtistPage";
 import AccountPage from "./pages/AccountPage"
 import Home from "./pages/Home";
 import Footer from "./components/Footer";
+import useAuthStore from './context/zustand';
+
 
 function App() {
   const [searchText, setSearchText] = useState("");
@@ -22,6 +24,8 @@ function App() {
   const [trackResults, setTrackResults] = useState<Track[]>()
 
   // type SearchType = (<Track> | <Artist> | <Album>)
+
+  const {isAuthenticated, accessToken} = useAuthStore()
 
 
   const api = SpotifyApi.withClientCredentials(
@@ -70,7 +74,7 @@ function App() {
           <Route path="/account" element={<AccountPage />} />
         </Routes>
       </BrowserRouter>
-      <Footer />
+      {isAuthenticated ? <Footer /> : <h2>not logged in</h2>}
     </main>
   );
 }
