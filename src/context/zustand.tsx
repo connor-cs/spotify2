@@ -4,9 +4,7 @@ import { create } from "zustand";
 // spotify-sdk:ClientCredentialsStrategy:token
 // or this?
 // access_token
-
-
-
+//
 const useAuthStore = create((set) => ({
   isAuthenticated: !!localStorage.getItem('access_token'),
   accessToken: localStorage.getItem('access_token'),
