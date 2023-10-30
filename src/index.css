@@ -155,12 +155,13 @@ aside {
 }
 
 .songRow {
-  margin-left: 20px !important;
+  /* margin-left: 20px !important; */
   padding: 20px !important;
   display: flex !important;
   align-items: center;
   z-index: 100;
   color: white;
+  width: auto;
 }
 
 .songRow:hover {
@@ -168,14 +169,20 @@ aside {
   background-color: black;
   opacity: 0.8;
 }
-.songRow__info > h1 {
+.songRow-info > h1 {
   font-size: 16px;
   
 }
-.songRow__info > p {
+.songRow-info > p {
   font-size: 14px;
   margin-top: 3px;
   color: gray !important;
+}
+
+.songRow-artist-album {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 .songRow-album {
   height: 40px !important;
