@@ -161,7 +161,7 @@ aside {
   align-items: center;
   z-index: 100;
   color: white;
-  width: auto;
+  width: 100%;
 }
 
 .songRow:hover {
@@ -171,7 +171,8 @@ aside {
 }
 .songRow-info > h1 {
   font-size: 16px;
-  
+  align-self: flex-start
+  ;
 }
 .songRow-info > p {
   font-size: 14px;
@@ -179,10 +180,20 @@ aside {
   color: gray !important;
 }
 
+.songRow-info {
+  width: 100%;
+  margin: .5rem;
+  display: flex;
+  flex-direction: column;
+}
+
 .songRow-artist-album {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-top: 3px;
+  color: gray !important;
 }
 .songRow-album {
   height: 40px !important;

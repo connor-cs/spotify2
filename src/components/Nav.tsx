@@ -23,7 +23,7 @@ const Nav = ({ submit, handleChange, setSearchType, searchType}) => {
   
   return (
     <div className="d-flex m-2">
-      <AiFillHome size={40}className="home-icon mr-5" onClick={()=>goHome()}/>
+      <AiFillHome size={40} className="home-icon mr-5" onClick={()=>goHome()}/>
       <InputGroup className="mb-3">
         <Form.Control type="text" onChange={(e)=>handleChange(e.target.value)} placeholder="search"/>
 
