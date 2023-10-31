@@ -3,7 +3,9 @@ import { MdHomeFilled, MdSearch } from "react-icons/md";
 import { IoLibrary } from "react-icons/io5";
 import Playlists from "./Playlists";
 
+
 const Sidebar = ({ playlists }) => {
+  
   return (
     <aside className='sidebar'>
       <div className="text-light">

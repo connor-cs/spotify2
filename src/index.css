@@ -2,7 +2,8 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  margin: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -27,7 +28,8 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   display: flex;
   place-items: center;
   min-width: 320px;
@@ -73,9 +75,14 @@ button:focus-visible {
   }
 }
 
-aside {
+.siderbar > aside {
   display: flex;
   flex-direction: column;
+  
+}
+
+.account-page {
+  width: 100%;
 }
 
 .artist-image {
@@ -135,6 +142,11 @@ aside {
   align-items: start;
   width: 100%;
   margin: none; 
+  
+}
+
+.playlist-container > ul {
+  border: solid;
 }
 
 
@@ -143,8 +155,12 @@ aside {
   padding: 1rem;
 }
 
+.profile {
+  background-color: #121212 !important;
+}
+
 .sidebar {
-  background-color: #000000;
+  background-color: #1a1a1a
 }
 
 .sidebar-top {
@@ -154,9 +170,10 @@ aside {
   border-radius: 5px;
 }
 
+
 .songRow {
   /* margin-left: 20px !important; */
-  padding: 20px !important;
+  padding: 10px !important;
   display: flex !important;
   align-items: center;
   z-index: 100;
@@ -166,11 +183,11 @@ aside {
 
 .songRow:hover {
   cursor: pointer;
-  background-color: black;
+  background-color: #1f1f1f;
   opacity: 0.8;
 }
 .songRow-info > h1 {
-  font-size: 16px;
+  font-size: 1rem;
   align-self: flex-start
   ;
 }
@@ -204,6 +221,11 @@ aside {
   height: 4rem;
   width: auto
 }
+
+.tracks-container {
+  background-color: #121212;
+}
+
 ul {
   list-style-type: none;
 }
@@ -212,6 +234,7 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: start;
+  
 }
 
 .ul > li {

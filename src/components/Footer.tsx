@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { IoPlaySkipForward, IoPlaySkipBack, IoPauseCircle } from 'react-icons/io5'
+import useAuthStore from "../context/zustand";
 
 
 interface SpotifyPlayerProps {
@@ -14,7 +15,8 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
   const [player, setPlayer] = useState<Spotify.SpotifyPlayer | null>(null);
   const [paused, setPaused] = useState(false)
   const [is_active, setActive] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState({ uris })
+  const [selectedTrack, setSelectedTrack] = useState({ uris })
+  const {currentTrack} = useAuthStore()
 
   let Spotifyplayer: Spotify.SpotifyPlayer | null = null;
 
@@ -61,8 +63,8 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
       player.addListener('ready', ({ device_id }) => {
         console.log('Ready with Device ID', device_id);
 
-        // player.play({
-        //   uris: currentTrack
+        // player.togglePlay({
+        //   uris: [currentTrack]
         // }).then(() => {
         //   console.log('started playback')
         // })
@@ -89,16 +91,13 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
         if (!state) {
           return;
         }
-
         setCurrentTrack(state.track_window.current_track);
         setPaused(state.paused);
 
         player.getCurrentState().then(state => {
           (!state) ? setActive(false) : setActive(true)
         });
-
       }));
-
 
       player.connect().then((success) => {
         if (success) {
@@ -119,7 +118,7 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
       </div>
       <div className="footer-center">
         <IoPlaySkipBack className="footer-icon m-2" size={50} onClick={()=> player.previousTrack()}/>
-        <AiFillPlayCircle className="footer-icon m-2" size={50} onClick={() => player.togglePlay()} />
+        <AiFillPlayCircle className="footer-icon m-2" size={50} onClick={() => player.togglePlay({currentTrack})} />
         <IoPlaySkipForward className="footer-icon m-2" size={50} onClick={()=>player.nextTrack()}/>
       </div>
       <div className="footer-right">

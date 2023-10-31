@@ -8,12 +8,17 @@ import {
 import TestCard from "../components/TestCard.js";
 import SongRow from "../components/SongRow.js";
 import { Artist, Track } from "@spotify/web-api-ts-sdk";
+import useAuthStore from "../context/zustand";
+
 
 const AccountPage = () => {
   const [userProfile, setUserProfile] = useState<Profile>(null);
   const [artists, setArtists] = useState<Artist[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
   const [playlists, setPlaylists] = useState<any[]>([]);
+  const {currentTrack, setCurrentTrack} = useAuthStore()
+  console.log(currentTrack)
+  
   type Profile = {
     display_name: string;
     id: string;
@@ -33,7 +38,6 @@ const AccountPage = () => {
     });
     const userData = await response.json();
     console.log({ userData });
-
     setUserProfile(userData);
     const topArtists = await getTopArtists();
     setArtists(topArtists);
@@ -41,12 +45,13 @@ const AccountPage = () => {
     setTracks(topTracks);
   }
 
+  //get profile data and userID
   useEffect(() => {
     getProfileData();
     console.log({ userProfile });
-
   }, []);
 
+  //second useEffect for getting playlist data with userID
   useEffect(() => {
     if (userProfile && userProfile.id) {
       getUserPlaylists(accessToken, userProfile.id)
@@ -65,9 +70,9 @@ const AccountPage = () => {
   return !userProfile ? (
     <h1>Loading profile...</h1>
   ) : (
-    <div className="container-lg border border-primary">
+    <div className=" account-page container-lg ">
       <div className="row">
-        <div className="sidebar col bg-dark w-30">
+        <div className="sidebar col  w-30">
           {!playlists ? (
             <h3 className="text-light">Loading playlists...</h3>
           ) : (
@@ -75,13 +80,13 @@ const AccountPage = () => {
           )}
           {/* <Sidebar playlists={playlists}/> */}
         </div>
-        <div className="profile bg-dark col container-lg border border-primary">
+        <div className="profile col container-lg ">
           <img
             src={userProfile.images[1]?.url}
             className="rounded-circle shadow-4-strong"
           />
           <h1 className="text-light">{userProfile?.display_name}</h1>
-          <div className="tracks-container container text-light border border-secondary">
+          <div className="tracks-container container text-light ">
             <h3>Top tracks</h3>
             <div className="d-flex flex-column">
               {tracks?.map((track) => (
