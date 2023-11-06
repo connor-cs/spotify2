@@ -117,9 +117,9 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
         <p>song info</p>
       </div>
       <div className="footer-center">
-        <IoPlaySkipBack className="footer-icon m-2" size={50} onClick={()=> player.previousTrack()}/>
-        <AiFillPlayCircle className="footer-icon m-2" size={50} onClick={() => player.togglePlay({currentTrack})} />
-        <IoPlaySkipForward className="footer-icon m-2" size={50} onClick={()=>player.nextTrack()}/>
+        <IoPlaySkipBack className="footer-icon m-2" size={50} onClick={()=> player?.previousTrack()}/>
+        <AiFillPlayCircle className="footer-icon m-2" size={50} onClick={() => player?.togglePlay({currentTrack})} />
+        <IoPlaySkipForward className="footer-icon m-2" size={50} onClick={()=>player?.nextTrack()}/>
       </div>
       <div className="footer-right">
         <p>volume</p>
