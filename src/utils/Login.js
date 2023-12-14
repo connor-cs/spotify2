@@ -44,7 +44,6 @@ async function getToken(body) {
   }
 }
 
-//minute 32
 export function Login() {
   const clientId = "1553a231a3b74e48bb3dc6efdce3cb72";
   const redirectUri = "http://localhost:5173";
@@ -54,7 +53,7 @@ export function Login() {
   generateCodeChallenge(codeVerifier).then((codeChallenge) => {
     let state = generateRandomString(16);
     let scope =
-      "user-read-private user-read-email user-read-currently-playing streaming user-read-playback-state user-read-recently-played user-modify-playback-state user-top-read";
+      "user-read-private user-read-email user-read-currently-playing streaming user-read-playback-state user-read-recently-played user-modify-playback-state user-top-read playlist-read-private playlist-read-collaborative";
 
     localStorage.setItem("code_verifier", codeVerifier);
 
@@ -70,6 +69,11 @@ export function Login() {
 
     window.location = "https://accounts.spotify.com/authorize?" + args;
   });
+}
+
+export function loginCallback() {
+  const clientId = "1553a231a3b74e48bb3dc6efdce3cb72";
+  const redirectUri = "http://localhost:5173";
 
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("code");
