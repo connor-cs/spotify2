@@ -54,7 +54,7 @@ const AccountPage = () => {
   //second useEffect for getting playlist data with userID
   useEffect(() => {
     if (userProfile && userProfile.id) {
-      getUserPlaylists(accessToken, userProfile.id)
+      getUserPlaylists(userProfile.id)
         .then((userPlaylists) => {
           setPlaylists(userPlaylists);
         })
