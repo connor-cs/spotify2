@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AiFillPlayCircle } from "react-icons/ai";
+import { AiFillPauseCircle, AiFillPlayCircle } from "react-icons/ai";
 import {
   IoPlaySkipForward,
   IoPlaySkipBack,
@@ -22,10 +22,11 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
   const [is_active, setActive] = useState(false);
   const [deviceId, setDeviceId] = useState("");
   const [selectedTrack, setSelectedTrack] = useState({ uris });
+  const [isPlaying, setIsPlaying] = useState(false);
   const { currentTrack } = useAuthStore();
 
   console.log({ currentTrack });
-  console.log(typeof currentTrack)
+  console.log(typeof currentTrack);
 
   let Spotifyplayer: Spotify.SpotifyPlayer | null = null;
 
@@ -40,8 +41,8 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
           Authorization: "Bearer " + accessToken,
         },
         body: JSON.stringify({
-          "uris": ["spotify:track:6ivUoajqXRNVIyEGhRkucw"],
-          "position_ms": 0,
+          uris: ["spotify:track:6ivUoajqXRNVIyEGhRkucw"],
+          position_ms: 0,
         }),
       }
     );
@@ -50,15 +51,28 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
         console.log("Resumed playback");
       });
     }
+    setIsPlaying(true);
   };
 
-  // const handlePause = () => {
-  //   if (player) {
-  //     player.pause().then(() => {
-  //       console.log("Paused playback");
-  //     });
-  //   }
-  // };
+  const handlePause = async () => {
+    const accessToken = localStorage.getItem("access_token");
+
+    await fetch(
+      `https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      }
+    );
+    if (player) {
+      player.pause().then(() => {
+        console.log("Paused playback");
+      });
+    }
+    setIsPlaying(false);
+  };
   // const handleNext = () => {
   //   if (player) {
   //     player.nextTrack().then(() => {
@@ -145,11 +159,20 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
           size={50}
           onClick={() => player?.previousTrack()}
         />
-        <AiFillPlayCircle
-          className="footer-icon m-2"
-          size={50}
-          onClick={() => handlePlay()}
-        />
+        {isPlaying ? (
+          <AiFillPauseCircle
+            className="footer-icon m-2"
+            size={50}
+            onClick={() => handlePause()}
+          />
+        ) : (
+          <AiFillPlayCircle
+            className="footer-icon m-2"
+            size={50}
+            onClick={() => handlePlay()}
+          />
+        )}
+
         <IoPlaySkipForward
           className="footer-icon m-2"
           size={50}
