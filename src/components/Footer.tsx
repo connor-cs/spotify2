@@ -41,8 +41,8 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
           Authorization: "Bearer " + accessToken,
         },
         body: JSON.stringify({
-          uris: ["spotify:track:6ivUoajqXRNVIyEGhRkucw"],
-          position_ms: 0,
+          uris: [`${currentTrack}`],
+          
         }),
       }
     );
