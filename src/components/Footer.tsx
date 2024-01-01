@@ -1,32 +1,56 @@
 import React, { useState, useEffect } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
-import { IoPlaySkipForward, IoPlaySkipBack, IoPauseCircle } from 'react-icons/io5'
+import {
+  IoPlaySkipForward,
+  IoPlaySkipBack,
+  IoPauseCircle,
+} from "react-icons/io5";
 import useAuthStore from "../context/zustand";
-
+import { json } from "react-router-dom";
 
 interface SpotifyPlayerProps {
   token: string;
-  uris: ["spotify:track:2z772Yunx3jUbh6YLY8HU2", "spotify:track:6ivUoajqXRNVIyEGhRkucw"]; // Array of track URIs to play
+  uris: [
+    "spotify:track:2z772Yunx3jUbh6YLY8HU2",
+    "spotify:track:6ivUoajqXRNVIyEGhRkucw"
+  ]; // Array of track URIs to play
 }
-
-
 
 const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
   const [player, setPlayer] = useState<Spotify.SpotifyPlayer | null>(null);
-  const [paused, setPaused] = useState(false)
+  const [paused, setPaused] = useState(false);
   const [is_active, setActive] = useState(false);
-  const [selectedTrack, setSelectedTrack] = useState({ uris })
-  const {currentTrack} = useAuthStore()
+  const [deviceId, setDeviceId] = useState("");
+  const [selectedTrack, setSelectedTrack] = useState({ uris });
+  const { currentTrack } = useAuthStore();
+
+  console.log({ currentTrack });
+  console.log(typeof currentTrack)
 
   let Spotifyplayer: Spotify.SpotifyPlayer | null = null;
 
-  // const handlePlay = () => {
-  //   if (player) {
-  //     player.resume().then(() => {
-  //       console.log("Resumed playback");
-  //     });
-  //   }
-  // };
+  const handlePlay = async () => {
+    const accessToken = localStorage.getItem("access_token");
+
+    await fetch(
+      `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+        body: JSON.stringify({
+          "uris": ["spotify:track:6ivUoajqXRNVIyEGhRkucw"],
+          "position_ms": 0,
+        }),
+      }
+    );
+    if (player) {
+      player.togglePlay().then(() => {
+        console.log("Resumed playback");
+      });
+    }
+  };
 
   // const handlePause = () => {
   //   if (player) {
@@ -47,21 +71,23 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
     const script = document.createElement("script");
     script.src = "https://sdk.scdn.co/spotify-player.js";
     script.async = true;
-    const token = localStorage.getItem('access_token')
+    const token = localStorage.getItem("access_token");
     document.body.appendChild(script);
 
     window.onSpotifyWebPlaybackSDKReady = () => {
-
       const player = new window.Spotify.Player({
-        name: 'Web Playback SDK',
-        getOAuthToken: cb => { cb(token); },
-        volume: 0.5
+        name: "Web Playback SDK",
+        getOAuthToken: (cb) => {
+          cb(token);
+        },
+        volume: 0.5,
       });
       setPlayer(player);
-      console.log({ player })
+      console.log({ player });
 
-      player.addListener('ready', ({ device_id }) => {
-        console.log('Ready with Device ID', device_id);
+      player.addListener("ready", ({ device_id }) => {
+        console.log("Ready with Device ID", device_id);
+        setDeviceId(device_id);
 
         // player.togglePlay({
         //   uris: [currentTrack]
@@ -72,8 +98,8 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
         //     console.error('error starting playback', e)
         //   })
       });
-      player.addListener('not_ready', ({ device_id }) => {
-        console.log('Device ID has gone offline', device_id);
+      player.addListener("not_ready", ({ device_id }) => {
+        console.log("Device ID has gone offline", device_id);
       });
       player.addListener("initialization_error", ({ message }) => {
         console.error("Initialization Error:", message);
@@ -87,28 +113,25 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
       player.addListener("playback_error", ({ message }) => {
         console.error("Playback Error:", message);
       });
-      player.addListener('player_state_changed', (state => {
+      player.addListener("player_state_changed", (state) => {
         if (!state) {
           return;
         }
         setCurrentTrack(state.track_window.current_track);
         setPaused(state.paused);
 
-        player.getCurrentState().then(state => {
-          (!state) ? setActive(false) : setActive(true)
+        player.getCurrentState().then((state) => {
+          !state ? setActive(false) : setActive(true);
         });
-      }));
+      });
 
       player.connect().then((success) => {
         if (success) {
-          console.log("Connected to spotify player!")
+          console.log("Connected to spotify player!");
         }
-      })
-
+      });
     };
   }, [uris]);
-
-
 
   return (
     <div className="footer d-flex  justify-content-between mb-4">
@@ -117,15 +140,27 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
         <p>song info</p>
       </div>
       <div className="footer-center">
-        <IoPlaySkipBack className="footer-icon m-2" size={50} onClick={()=> player?.previousTrack()}/>
-        <AiFillPlayCircle className="footer-icon m-2" size={50} onClick={() => player?.togglePlay({currentTrack})} />
-        <IoPlaySkipForward className="footer-icon m-2" size={50} onClick={()=>player?.nextTrack()}/>
+        <IoPlaySkipBack
+          className="footer-icon m-2"
+          size={50}
+          onClick={() => player?.previousTrack()}
+        />
+        <AiFillPlayCircle
+          className="footer-icon m-2"
+          size={50}
+          onClick={() => handlePlay()}
+        />
+        <IoPlaySkipForward
+          className="footer-icon m-2"
+          size={50}
+          onClick={() => player?.nextTrack()}
+        />
       </div>
       <div className="footer-right">
         <p>volume</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
