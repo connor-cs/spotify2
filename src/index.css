@@ -117,6 +117,10 @@ button:focus-visible {
   cursor: pointer;
 }
 
+.list-item {
+  cursor: pointer;
+}
+
 .footer-icon {
   color: #ffffff;
   cursor: pointer;

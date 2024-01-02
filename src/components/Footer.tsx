@@ -151,31 +151,32 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
     <div className="footer d-flex  justify-content-between mb-4">
       {/* <div className="h4 text-light">This is the footer</div> */}
       <div className="footer-left">
+        ,
         <p>song info</p>
       </div>
       <div className="footer-center">
         <IoPlaySkipBack
           className="footer-icon m-2"
-          size={50}
+          size={40}
           onClick={() => player?.previousTrack()}
         />
         {isPlaying ? (
           <AiFillPauseCircle
             className="footer-icon m-2"
-            size={50}
+            size={40}
             onClick={() => handlePause()}
           />
         ) : (
           <AiFillPlayCircle
             className="footer-icon m-2"
-            size={50}
+            size={40}
             onClick={() => handlePlay()}
           />
         )}
 
         <IoPlaySkipForward
           className="footer-icon m-2"
-          size={50}
+          size={40}
           onClick={() => player?.nextTrack()}
         />
       </div>

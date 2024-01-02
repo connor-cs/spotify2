@@ -4,6 +4,7 @@ import { AiFillPauseCircle } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import { SpotifyApi } from "@spotify/web-api-ts-sdk";
 import { Market } from "@spotify/web-api-ts-sdk";
+import useAuthStore from "../context/zustand";
 
 const ArtistPage = () => {
   const api = SpotifyApi.withClientCredentials(
@@ -14,6 +15,7 @@ const ArtistPage = () => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [artistInfo, setArtistInfo] = useState<null>(null);
   const [topTracks, setTopTracks] = useState<[]>();
+  const {setCurrentTrack} = useAuthStore()
   const { id } = useParams<{ id: string }>();
   //should I create a type called ArtistInfo??
 
@@ -39,6 +41,8 @@ const ArtistPage = () => {
     getTopTracks(id, "US");
   }, [id]);
 
+  
+
   return (
     <div>
       {loaded ? (
@@ -55,7 +59,9 @@ const ArtistPage = () => {
             <ListGroup as="ol" numbered className="dp-flex flex-col justify-content-center">
               {topTracks
                 ? topTracks.map((track) => (
-                    <ListGroup.Item key={track.id} variant="dark" className="">
+                    <ListGroup.Item key={track.uri} variant="dark" className="list-item" onClick={(e)=>{
+                      if (e.detail >= 2) setCurrentTrack(track.uri)
+                    }}>
                       <div className="ms-2">
                         <div className="fw-bold">{track.name}</div>
                         {track.album.name}
