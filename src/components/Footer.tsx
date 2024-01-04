@@ -81,10 +81,6 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
   //   }
   // };
 
-  const getTrackInfo = async (trackId) => {
-    const data = await fetch(`https://api.spotify.com/v1/tracks/${trackId}`)
-  }
-
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://sdk.scdn.co/spotify-player.js";
@@ -151,10 +147,6 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
     };
   }, [uris]);
 
-  //get track info to display at footer
-  useEffect(()=> {
-
-  },[])
 
   return (
     <div className="footer d-flex  justify-content-between mb-4">
