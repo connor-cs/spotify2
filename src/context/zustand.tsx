@@ -9,7 +9,12 @@ import { create } from "zustand";
 const useAuthStore = create((set) => ({
   isAuthenticated: !!localStorage.getItem("access_token"),
   accessToken: localStorage.getItem("access_token"),
-  currentTrack: "",
+  currentTrack: {
+    currentTrackUri: "",
+    id: "",
+    artist: "",
+    image: "",
+  },
   login: (token) => {
     localStorage.setItem("access_token", token);
     set({ isAuthenticated: true, accessToken: token });
@@ -18,9 +23,19 @@ const useAuthStore = create((set) => ({
     localStorage.removeItem("access_token");
     set({ isAuthenticated: false, accessToken: null });
   },
-  setCurrentTrack: (newTrackUri: string) => {
+  setCurrentTrack: (
+    newTrackUri: string,
+    trackId: string,
+    artistName: string,
+    trackImage: string
+  ) => {
     set((currentTrack) => ({
-      currentTrack: newTrackUri,
+      currentTrack: {
+        uri: newTrackUri,
+        id: trackId,
+        artist: artistName,
+        image: trackImage,
+      },
     }));
   },
 }));

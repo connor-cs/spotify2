@@ -60,7 +60,7 @@ const ArtistPage = () => {
               {topTracks
                 ? topTracks.map((track) => (
                     <ListGroup.Item key={track.uri} variant="dark" className="list-item" onClick={(e)=>{
-                      if (e.detail >= 2) setCurrentTrack(track.uri)
+                      if (e.detail >= 2) setCurrentTrack(track.uri, track.id, "name", track.album.images[2].url)
                     }}>
                       <div className="ms-2">
                         <div className="fw-bold">{track.name}</div>
