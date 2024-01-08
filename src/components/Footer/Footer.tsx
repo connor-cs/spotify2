@@ -25,7 +25,7 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
   const { currentTrack } = useAuthStore();
   const { currentTrackUri } = currentTrack;
 
-  console.log({ currentTrackUri });
+  console.log({ currentTrack });
 
   let Spotifyplayer: Spotify.SpotifyPlayer | null = null;
 
