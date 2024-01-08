@@ -12,6 +12,7 @@ const useAuthStore = create((set) => ({
   currentTrack: {
     currentTrackUri: "",
     id: "",
+    trackName: "",
     artist: "",
     image: "",
   },
@@ -26,6 +27,7 @@ const useAuthStore = create((set) => ({
   setCurrentTrack: (
     newTrackUri: string,
     trackId: string,
+    trackName: string,
     artistName: string,
     trackImage: string
   ) => {
@@ -33,6 +35,7 @@ const useAuthStore = create((set) => ({
       currentTrack: {
         currentTrackUri: newTrackUri,
         id: trackId,
+        trackName: trackName,
         artist: artistName,
         image: trackImage,
       },

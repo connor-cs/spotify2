@@ -5,8 +5,8 @@ import {
   IoPlaySkipBack,
   IoPauseCircle,
 } from "react-icons/io5";
-import useAuthStore from "../context/zustand";
-import { json } from "react-router-dom";
+import './Footer.css'
+import useAuthStore from "../../context/zustand";
 
 interface SpotifyPlayerProps {
   token: string;
@@ -21,13 +21,11 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
   const [paused, setPaused] = useState(false);
   const [is_active, setActive] = useState(false);
   const [deviceId, setDeviceId] = useState("");
-  const [selectedTrack, setSelectedTrack] = useState({ uris });
   const [isPlaying, setIsPlaying] = useState(false);
   const { currentTrack } = useAuthStore();
-  const {currentTrackUri} = currentTrack
+  const { currentTrackUri } = currentTrack;
 
-  console.log({ currentTrackUri});
-  console.log(typeof currentTrackUri);
+  console.log({ currentTrackUri });
 
   let Spotifyplayer: Spotify.SpotifyPlayer | null = null;
 
@@ -43,7 +41,6 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
         },
         body: JSON.stringify({
           uris: [`${currentTrackUri}`],
-          
         }),
       }
     );
@@ -148,14 +145,19 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
     };
   }, [uris]);
 
-
   return (
     <div className="footer d-flex  justify-content-between mb-4">
-      {/* <div className="h4 text-light">This is the footer</div> */}
-      <div className="footer-left">
-        ,
-        <p>song info</p>
+      
+      <div className="footer-left track-info-section">
+        <div className="">
+          <img src={currentTrack.image} />
+        </div>
+        <div className="player-track-info">
+          <p className="player-songname">{currentTrack.trackName}</p>
+          <p className="player-artistname">{currentTrack.artist}</p>
+        </div>
       </div>
+      
       <div className="footer-center">
         <IoPlaySkipBack
           className="footer-icon m-2"

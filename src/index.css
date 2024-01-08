@@ -94,9 +94,12 @@ button:focus-visible {
   border: 2px solid black;
   padding: 1rem;
   margin: 0.5rem;
-  background-color: rgb(67, 65, 65) !important;
+  background-color: #181818 !important;
   color: white !important;
   cursor: pointer;
+}
+.card:hover {
+  background-color: #282828 !important
 }
 
 .container {

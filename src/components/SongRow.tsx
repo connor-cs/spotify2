@@ -5,7 +5,7 @@ const SongRow = ({ track }) => {
   // console.log(currentTrack)
   
   return (
-    <div onClick={()=>setCurrentTrack(track.uri, track.id, track.artists[0].name, track.album.images[2].url)} className="songRow d-flex" key={track.id}>
+    <div onClick={()=>setCurrentTrack(track.uri, track.id, track.name, track.artists[0].name, track.album.images[2].url)} className="songRow d-flex" key={track.id}>
       <img className="songRow-album" src={track.album.images[2].url} />
       <div className="songRow-info text-light">
         <h1 className="fs-4 songRow-trackName m-0">{track.name}</h1>
