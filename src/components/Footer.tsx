@@ -24,9 +24,10 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
   const [selectedTrack, setSelectedTrack] = useState({ uris });
   const [isPlaying, setIsPlaying] = useState(false);
   const { currentTrack } = useAuthStore();
+  const {currentTrackUri} = currentTrack
 
-  console.log({ currentTrack });
-  console.log(typeof currentTrack);
+  console.log({ currentTrackUri});
+  console.log(typeof currentTrackUri);
 
   let Spotifyplayer: Spotify.SpotifyPlayer | null = null;
 
@@ -41,7 +42,7 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
           Authorization: "Bearer " + accessToken,
         },
         body: JSON.stringify({
-          uris: [`${currentTrack}`],
+          uris: [`${currentTrackUri}`],
           
         }),
       }
