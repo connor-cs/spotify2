@@ -40,7 +40,7 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
           Authorization: "Bearer " + accessToken,
         },
         body: JSON.stringify({
-          uris: [`${currentTrackUri}`],
+          uris: ['spotify:playlist:6VSIPRD80n9rauGrWl1cPf'],
         }),
       }
     );
@@ -71,13 +71,26 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
     }
     setIsPlaying(false);
   };
-  // const handleNext = () => {
-  //   if (player) {
-  //     player.nextTrack().then(() => {
-  //       console.log("Skipped to the next track");
-  //     });
-  //   }
-  // };
+  
+  const handleNext = async () => {
+    const accessToken = localStorage.getItem("access_token");
+
+    await fetch(
+      `https://api.spotify.com/v1/me/player/next?device_id=${deviceId}`
+    ),
+    {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + accessToken
+      },
+    }
+
+    if (player) {
+      player.nextTrack().then(() => {
+        console.log("Skipped to the next track");
+      });
+    }
+  };
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -181,7 +194,7 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
         <IoPlaySkipForward
           className="footer-icon m-2"
           size={40}
-          onClick={() => player?.nextTrack()}
+          onClick={() => handleNext()}
         />
       </div>
       <div className="footer-right">

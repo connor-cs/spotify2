@@ -16,6 +16,7 @@ const useAuthStore = create((set) => ({
     artist: "",
     image: "",
   },
+  currentPlaylist: "",
   login: (token) => {
     localStorage.setItem("access_token", token);
     set({ isAuthenticated: true, accessToken: token });
@@ -41,6 +42,11 @@ const useAuthStore = create((set) => ({
       },
     }));
   },
+  setCurrentPlaylist: (playlistUri: string) => ({
+    set(currentPlaylist) => ({
+      currentPlaylist: playlistUri
+    })
+  })
 }));
 
 export default useAuthStore;
