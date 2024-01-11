@@ -42,11 +42,17 @@ const useAuthStore = create((set) => ({
       },
     }));
   },
-  setCurrentPlaylist: (playlistUri: string) => ({
-    set(currentPlaylist) => ({
-      currentPlaylist: playlistUri
-    })
-  })
+  // setCurrentPlaylist: (
+  //   playlistUri: string
+  //   ) => {
+  //   set((currentPlaylist) => ({
+  //     currentPlaylist: playlistUri
+  //   })
+  // }
+  setCurrentPlaylist: (playlistUri: string) =>
+    set((currentPlaylist) => ({
+      currentPlaylist: playlistUri,
+    })),
 }));
 
 export default useAuthStore;

@@ -27,7 +27,7 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
 
   console.log({ currentTrack });
 
-  let Spotifyplayer: Spotify.SpotifyPlayer | null = null;
+  // let Spotifyplayer: Spotify.SpotifyPlayer | null = null;
 
   const handlePlay = async () => {
     const accessToken = localStorage.getItem("access_token");
@@ -40,7 +40,7 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
           Authorization: "Bearer " + accessToken,
         },
         body: JSON.stringify({
-          uris: ['spotify:playlist:6VSIPRD80n9rauGrWl1cPf'],
+          uris: [`${currentTrackUri}`],
         }),
       }
     );
@@ -91,6 +91,10 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
       });
     }
   };
+
+  useEffect(()=> {
+
+  },[])
 
   useEffect(() => {
     const script = document.createElement("script");

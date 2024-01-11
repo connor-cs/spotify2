@@ -1,4 +1,7 @@
+import useAuthStore from "../context/zustand";
+
 const Playlists = ({ playlists }) => {
+  const { setCurrentPlaylist } = useAuthStore();
   interface Playlist {
     id: "string";
     name: "string";
@@ -9,7 +12,15 @@ const Playlists = ({ playlists }) => {
     <div className="playlist">
       <ul className="m-0 p-0">
         {playlists.map((list: Playlist) => {
-          return <li onClick={()=>console.log(list.uri)} className="playlist-name" key={list.id}>{list.name}</li>;
+          return (
+            <li
+              onClick={() => setCurrentPlaylist(list.uri)}
+              className="playlist-name"
+              key={list.id}
+            >
+              {list.name}
+            </li>
+          );
         })}
       </ul>
     </div>
