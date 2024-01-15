@@ -1,10 +1,12 @@
-export const getTracksFromPlaylist = async (uri) => {
-  const accessToken = localStorage.getItem("access_token");
-  await fetch(`https://api.spotify.com/v1/playlists/${uri}/tracks`),
+export const getTracksFromPlaylist = async (id, accessToken) => {
+  
+  const data = await fetch(`https://api.spotify.com/v1/playlists/${id}/tracks`,
   {
     method: "GET",
     headers: {
       Authorization: "Bearer " + accessToken
     }
-  }
+  })
+  const tracks = await data.json()
+  return tracks.items
 }

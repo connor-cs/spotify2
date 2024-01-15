@@ -37,7 +37,7 @@ const AccountPage = () => {
       },
     });
     const userData = await response.json();
-    console.log({ userData });
+    // console.log({ userData });
     setUserProfile(userData);
     const topArtists = await getTopArtists();
     setArtists(topArtists);

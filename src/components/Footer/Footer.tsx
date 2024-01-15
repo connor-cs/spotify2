@@ -5,8 +5,9 @@ import {
   IoPlaySkipBack,
   IoPauseCircle,
 } from "react-icons/io5";
-import './Footer.css'
+import "./Footer.css";
 import useAuthStore from "../../context/zustand";
+import { getTracksFromPlaylist } from "./PlayerFunctions";
 
 interface SpotifyPlayerProps {
   token: string;
@@ -22,11 +23,14 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
   const [is_active, setActive] = useState(false);
   const [deviceId, setDeviceId] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
-  const { currentTrack } = useAuthStore();
+  const { currentTrack, currentPlaylistId } = useAuthStore();
   const { currentTrackUri } = currentTrack;
+  const [listTracks, setListTracks] = useState([]);
 
-  console.log({ currentTrack });
-
+  //
+  console.log(currentPlaylistId);
+  console.log({ listTracks });
+  
   // let Spotifyplayer: Spotify.SpotifyPlayer | null = null;
 
   const handlePlay = async () => {
@@ -71,19 +75,19 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
     }
     setIsPlaying(false);
   };
-  
+
   const handleNext = async () => {
     const accessToken = localStorage.getItem("access_token");
 
     await fetch(
       `https://api.spotify.com/v1/me/player/next?device_id=${deviceId}`
     ),
-    {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + accessToken
-      },
-    }
+      {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      };
 
     if (player) {
       player.nextTrack().then(() => {
@@ -92,9 +96,28 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
     }
   };
 
-  useEffect(()=> {
+  useEffect(() => {
+    const accessToken = localStorage.getItem("access_token");
 
-  },[])
+    const getTracksFromPlaylist = async () => {
+      const data = await fetch(
+        `https://api.spotify.com/v1/playlists/${currentPlaylistId}/tracks`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + accessToken,
+          },
+        }
+      );
+      const tracks = await data.json();
+      setListTracks(tracks.items)
+    };
+    
+    getTracksFromPlaylist()
+    
+    
+
+  }, [currentPlaylistId]);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -117,15 +140,6 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
       player.addListener("ready", ({ device_id }) => {
         console.log("Ready with Device ID", device_id);
         setDeviceId(device_id);
-
-        // player.togglePlay({
-        //   uris: [currentTrack]
-        // }).then(() => {
-        //   console.log('started playback')
-        // })
-        //   .catch(e => {
-        //     console.error('error starting playback', e)
-        //   })
       });
       player.addListener("not_ready", ({ device_id }) => {
         console.log("Device ID has gone offline", device_id);
@@ -164,7 +178,6 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
 
   return (
     <div className="footer d-flex  justify-content-between mb-4">
-      
       <div className="footer-left track-info-section">
         <div className="">
           <img src={currentTrack.image} />
@@ -174,7 +187,7 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
           <p className="player-artistname">{currentTrack.artist}</p>
         </div>
       </div>
-      
+
       <div className="footer-center">
         <IoPlaySkipBack
           className="footer-icon m-2"

@@ -14,7 +14,7 @@ const Playlists = ({ playlists }) => {
         {playlists.map((list: Playlist) => {
           return (
             <li
-              onClick={() => setCurrentPlaylist(list.uri)}
+              onClick={() => setCurrentPlaylist(list.id)}
               className="playlist-name"
               key={list.id}
             >

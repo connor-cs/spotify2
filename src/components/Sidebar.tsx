@@ -6,7 +6,7 @@ import Playlists from "./Playlists";
 
 const Sidebar = ({ playlists }) => {
 
-  console.log({playlists})
+  // console.log({playlists})
   
   return (
     <aside className='sidebar'>

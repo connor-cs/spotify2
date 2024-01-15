@@ -16,7 +16,8 @@ const useAuthStore = create((set) => ({
     artist: "",
     image: "",
   },
-  currentPlaylist: "",
+  currentPlaylistId: "",
+  currentPlaylistTrackList: [],
   login: (token) => {
     localStorage.setItem("access_token", token);
     set({ isAuthenticated: true, accessToken: token });
@@ -49,9 +50,9 @@ const useAuthStore = create((set) => ({
   //     currentPlaylist: playlistUri
   //   })
   // }
-  setCurrentPlaylist: (playlistUri: string) =>
+  setCurrentPlaylist: (playlistId: string) =>
     set((currentPlaylist) => ({
-      currentPlaylist: playlistUri,
+      currentPlaylistId: playlistId,
     })),
 }));
 
