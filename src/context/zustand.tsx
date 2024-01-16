@@ -33,7 +33,7 @@ const useAuthStore = create((set) => ({
     artistName: string,
     trackImage: string
   ) => {
-    set((currentTrack) => ({
+    set(() => ({
       currentTrack: {
         currentTrackUri: newTrackUri,
         id: trackId,
@@ -43,16 +43,15 @@ const useAuthStore = create((set) => ({
       },
     }));
   },
-  // setCurrentPlaylist: (
-  //   playlistUri: string
-  //   ) => {
-  //   set((currentPlaylist) => ({
-  //     currentPlaylist: playlistUri
-  //   })
-  // }
   setCurrentPlaylist: (playlistId: string) =>
-    set((currentPlaylist) => ({
+    set(() => ({
       currentPlaylistId: playlistId,
+    })),
+  setCurrentPlaylistTrackList: (tracksArray: Array) =>
+    set(() => ({
+      currentPlaylistTrackList: tracksArray.map(
+        (track: object) => track.track["uri"]
+      ),
     })),
 }));
 

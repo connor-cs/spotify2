@@ -7,7 +7,7 @@ import {
 } from "react-icons/io5";
 import "./Footer.css";
 import useAuthStore from "../../context/zustand";
-import { getTracksFromPlaylist } from "./PlayerFunctions";
+import { getTracksFromPlaylist } from "../../utils/GetUserInfoFunctions.js";
 
 interface SpotifyPlayerProps {
   token: string;
@@ -23,14 +23,16 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
   const [is_active, setActive] = useState(false);
   const [deviceId, setDeviceId] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
-  const { currentTrack, currentPlaylistId } = useAuthStore();
+  const {
+    currentTrack,
+    currentPlaylistId,
+    currentPlaylistTrackList,
+    setCurrentPlaylistTrackList,
+  } = useAuthStore();
   const { currentTrackUri } = currentTrack;
-  const [listTracks, setListTracks] = useState([]);
 
-  //
-  console.log(currentPlaylistId);
-  console.log({ listTracks });
-  
+  console.log({currentPlaylistTrackList});
+
   // let Spotifyplayer: Spotify.SpotifyPlayer | null = null;
 
   const handlePlay = async () => {
@@ -97,26 +99,10 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
   };
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("access_token");
-
-    const getTracksFromPlaylist = async () => {
-      const data = await fetch(
-        `https://api.spotify.com/v1/playlists/${currentPlaylistId}/tracks`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + accessToken,
-          },
-        }
-      );
-      const tracks = await data.json();
-      setListTracks(tracks.items)
-    };
-    
-    getTracksFromPlaylist()
-    
-    
-
+    getTracksFromPlaylist(currentPlaylistId).then((res) =>
+    setCurrentPlaylistTrackList(res)
+    // setListTracks(res)
+    );
   }, [currentPlaylistId]);
 
   useEffect(() => {
