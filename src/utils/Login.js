@@ -37,6 +37,7 @@ async function getToken(body) {
       throw new Error("HTTP status " + response.status);
     }
     const data = await response.json();
+    localStorage.setItem("refresh_token", data.refresh_token)
     localStorage.setItem("access_token", data.access_token);
     window.location.href = "/account";
   } catch (error) {

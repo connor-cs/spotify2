@@ -33,7 +33,7 @@ function App() {
     "37da88f137294d5a9f6a7ea57f0d4be9"
   );
 
-  console.log(results);
+  // console.log(results);
   // console.log({searchType})
 
   // async function submit(e: React.BaseSyntheticEvent, searchType: string) {

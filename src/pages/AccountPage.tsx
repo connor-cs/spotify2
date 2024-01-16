@@ -17,7 +17,7 @@ const AccountPage = () => {
   const [tracks, setTracks] = useState<Track[]>([]);
   const [playlists, setPlaylists] = useState<any[]>([]);
   const {currentTrack, setCurrentTrack} = useAuthStore()
-  console.log(currentTrack)
+  // console.log(currentTrack)
   
   type Profile = {
     display_name: string;

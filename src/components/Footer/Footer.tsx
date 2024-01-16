@@ -9,13 +9,13 @@ import "./Footer.css";
 import useAuthStore from "../../context/zustand";
 import { getTracksFromPlaylist } from "../../utils/GetUserInfoFunctions.js";
 
-interface SpotifyPlayerProps {
-  token: string;
-  uris: [
-    "spotify:track:2z772Yunx3jUbh6YLY8HU2",
-    "spotify:track:6ivUoajqXRNVIyEGhRkucw"
-  ]; // Array of track URIs to play
-}
+// interface SpotifyPlayerProps {
+//   token: string;
+//   uris: [
+//     "spotify:track:2z772Yunx3jUbh6YLY8HU2",
+//     "spotify:track:6ivUoajqXRNVIyEGhRkucw"
+//   ]; // Array of track URIs to play
+// }
 
 const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
   const [player, setPlayer] = useState<Spotify.SpotifyPlayer | null>(null);
@@ -160,7 +160,7 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
         }
       });
     };
-  }, [uris]);
+  }, []);
 
   return (
     <div className="footer d-flex  justify-content-between mb-4">
