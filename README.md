@@ -15,6 +15,7 @@ If you are developing a production application, we recommend updating the config
 //must remove old data from local storage
 //do this when app starts?
 
-//onclick for playlists
-//get playlist items
-//useeffect playlist? make api call
+//display artist's top albums on artist page
+//make album page
+
+//

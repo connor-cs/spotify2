@@ -17,7 +17,7 @@ import { getTracksFromPlaylist } from "../../utils/GetUserInfoFunctions.js";
 //   ]; // Array of track URIs to play
 // }
 
-const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
+const Footer: React.FC<SpotifyPlayerProps> = () => {
   const [player, setPlayer] = useState<Spotify.SpotifyPlayer | null>(null);
   const [paused, setPaused] = useState(false);
   const [is_active, setActive] = useState(false);
@@ -26,13 +26,14 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
   const {
     selectedTrack,
     selectedPlaylistId,
-    currentPlaylistTrackList,
+    selectedPlaylistTrackList,
     setCurrentPlaylistTrackList,
   } = useAuthStore();
   const { trackUri } = selectedTrack;
+  const [currentlyPlayingUris, setCurrentlyPlayingTrackUris] = useState([])
   // const activePlaylist = currentPlaylistTrackList.length > 0
 
-  console.log({currentPlaylistTrackList});
+  console.log({selectedPlaylistTrackList});
   
   console.log({selectedTrack})
 
@@ -106,6 +107,7 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
     setCurrentPlaylistTrackList(res)
     // setListTracks(res)
     );
+    setCurrentPlaylistTrackList
   }, [selectedPlaylistId]);
 
   useEffect(() => {
