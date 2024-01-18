@@ -1,6 +1,6 @@
 import useAuthStore from "../context/zustand";
 
-const Playlists = ({ playlists }) => {
+const PlaylistRow = ({ playlists }) => {
   const { setCurrentPlaylist } = useAuthStore();
   interface Playlist {
     id: "string";
@@ -27,4 +27,4 @@ const Playlists = ({ playlists }) => {
   );
 };
 
-export default Playlists;
+export default PlaylistRow;

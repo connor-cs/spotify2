@@ -9,15 +9,16 @@ import { create } from "zustand";
 const useAuthStore = create((set) => ({
   isAuthenticated: !!localStorage.getItem("access_token"),
   accessToken: localStorage.getItem("access_token"),
-  currentTrack: {
-    currentTrackUri: "",
+  selectedTrack: {
+    trackUri: "",
     id: "",
     trackName: "",
     artist: "",
     image: "",
   },
-  currentPlaylistId: "",
+  selectedPlaylistId: "",
   currentPlaylistTrackList: [],
+  currentlyPlayingTrackUris: [],
   login: (token) => {
     localStorage.setItem("access_token", token);
     set({ isAuthenticated: true, accessToken: token });
@@ -34,18 +35,18 @@ const useAuthStore = create((set) => ({
     trackImage: string
   ) => {
     set(() => ({
-      currentTrack: {
-        currentTrackUri: newTrackUri,
+      selectedTrack: {
+        trackUri: newTrackUri,
         id: trackId,
         trackName: trackName,
         artist: artistName,
         image: trackImage,
       },
-    }));
+    }))
   },
   setCurrentPlaylist: (playlistId: string) =>
     set(() => ({
-      currentPlaylistId: playlistId,
+      selectedPlaylistId: playlistId,
     })),
   setCurrentPlaylistTrackList: (tracksArray: Array) =>
     set(() => ({
@@ -53,6 +54,10 @@ const useAuthStore = create((set) => ({
         (track: object) => track.track["uri"]
       ),
     })),
+    setcurrentlyPlayingTrackUris: (uris: Array) => 
+    set(() => ({
+      currentlyPlayingTrackUris: uris
+    }))
 }));
 
 export default useAuthStore;

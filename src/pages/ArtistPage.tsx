@@ -15,7 +15,7 @@ const ArtistPage = () => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [artistInfo, setArtistInfo] = useState<null>(null);
   const [topTracks, setTopTracks] = useState<[]>();
-  const {setCurrentTrack} = useAuthStore()
+  const { setCurrentTrack } = useAuthStore();
   const { id } = useParams<{ id: string }>();
   //should I create a type called ArtistInfo??
 
@@ -41,8 +41,6 @@ const ArtistPage = () => {
     getTopTracks(id, "US");
   }, [id]);
 
-  
-
   return (
     <div>
       {loaded ? (
@@ -56,17 +54,53 @@ const ArtistPage = () => {
             ) : null}
           </div>
           <div className="top-tracks">
-            <ListGroup as="ol" numbered className="dp-flex flex-col justify-content-center">
-              {topTracks
+            <ListGroup
+              as="ol"
+              numbered
+              className="dp-flex flex-col justify-content-center"
+            >
+              {/* {topTracks
                 ? topTracks.map((track) => (
                     <ListGroup.Item key={track.uri} variant="dark" className="list-item" onClick={(e)=>{
-                      if (e.detail >= 2) setCurrentTrack(track.uri, track.id, track.name, track.album.images[2].url)
+                      if (e.detail >= 2) setCurrentTrack(track.uri, track.id, track.name, track.artists[0].name, track.album.images[2].url)
                     }}>
                       <div className="ms-2">
                         <div className="fw-bold">{track.name}</div>
                         {track.album.name}
                       </div>
                       </ListGroup.Item>
+                  ))
+                : null} */}
+              {topTracks
+                ? topTracks.map((track) => (
+                    <div
+                      onClick={() =>
+                        setCurrentTrack(
+                          track.uri,
+                          track.id,
+                          track.name,
+                          track.artists[0].name,
+                          track.album.images[2].url
+                        )
+                      }
+                      className="songRow d-flex"
+                      key={track.id}
+                    >
+                      <img
+                        className="songRow-album"
+                        src={track.album.images[2].url}
+                      />
+                      <div className="songRow-info text-light">
+                        <h1 className="fs-4 songRow-trackName m-0">
+                          {track.name}
+                        </h1>
+                        <div className="songRow-artist-album">
+                          <p>{track.artists[0].name} </p>
+                          <p> {track.album.name}</p>
+                        </div>
+                        {/* <p>{track.artists[0].name}{" "} {track.album.name}</p> */}
+                      </div>
+                    </div>
                   ))
                 : null}
             </ListGroup>

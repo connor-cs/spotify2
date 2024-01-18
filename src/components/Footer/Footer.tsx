@@ -24,14 +24,17 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
   const [deviceId, setDeviceId] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
   const {
-    currentTrack,
-    currentPlaylistId,
+    selectedTrack,
+    selectedPlaylistId,
     currentPlaylistTrackList,
     setCurrentPlaylistTrackList,
   } = useAuthStore();
-  const { currentTrackUri } = currentTrack;
+  const { trackUri } = selectedTrack;
+  // const activePlaylist = currentPlaylistTrackList.length > 0
 
   console.log({currentPlaylistTrackList});
+  
+  console.log({selectedTrack})
 
   // let Spotifyplayer: Spotify.SpotifyPlayer | null = null;
 
@@ -46,7 +49,7 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
           Authorization: "Bearer " + accessToken,
         },
         body: JSON.stringify({
-          uris: [`${currentTrackUri}`],
+          uris: [`${trackUri}`],
         }),
       }
     );
@@ -99,11 +102,11 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
   };
 
   useEffect(() => {
-    getTracksFromPlaylist(currentPlaylistId).then((res) =>
+    getTracksFromPlaylist(selectedPlaylistId).then((res) =>
     setCurrentPlaylistTrackList(res)
     // setListTracks(res)
     );
-  }, [currentPlaylistId]);
+  }, [selectedPlaylistId]);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -166,11 +169,11 @@ const Footer: React.FC<SpotifyPlayerProps> = ({ uris }) => {
     <div className="footer d-flex  justify-content-between mb-4">
       <div className="footer-left track-info-section">
         <div className="">
-          <img src={currentTrack.image} />
+          <img src={selectedTrack.image} />
         </div>
         <div className="player-track-info">
-          <p className="player-songname">{currentTrack.trackName}</p>
-          <p className="player-artistname">{currentTrack.artist}</p>
+          <p className="player-songname">{selectedTrack.trackName}</p>
+          <p className="player-artistname">{selectedTrack.artist}</p>
         </div>
       </div>
 

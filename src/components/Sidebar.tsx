@@ -1,7 +1,7 @@
 import { Image } from "react-bootstrap";
 import { MdHomeFilled, MdSearch } from "react-icons/md";
 import { IoLibrary } from "react-icons/io5";
-import Playlists from "./Playlists";
+import PlaylistRow from "./PlaylistRow";
 
 
 const Sidebar = ({ playlists }) => {
@@ -35,7 +35,7 @@ const Sidebar = ({ playlists }) => {
       </div>
         <div className="playlist-container text-light">
           <h5>Your Playlists</h5>
-          <Playlists playlists={playlists} />
+          <PlaylistRow playlists={playlists} />
         </div>
     </aside>
   );
