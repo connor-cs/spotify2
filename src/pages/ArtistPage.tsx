@@ -36,6 +36,7 @@ const ArtistPage = () => {
     console.log(tracks);
   }
 
+  //get data about artist
   useEffect(() => {
     getArtistInfo(id);
     getTopTracks(id, "US");

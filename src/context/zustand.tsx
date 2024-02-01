@@ -17,7 +17,9 @@ const useAuthStore = create((set) => ({
     image: "",
   },
   selectedPlaylistId: "",
+  //track uris from the selected playlist:
   selectedPlaylistTrackList: [],
+  //uris from selected playlist or from selected individual song:
   currentlyPlayingTrackUris: [],
   login: (token) => {
     localStorage.setItem("access_token", token);
@@ -42,7 +44,7 @@ const useAuthStore = create((set) => ({
         artist: artistName,
         image: trackImage,
       },
-    }))
+    }));
   },
   setCurrentPlaylist: (playlistId: string) =>
     set(() => ({
@@ -50,14 +52,14 @@ const useAuthStore = create((set) => ({
     })),
   setCurrentPlaylistTrackList: (tracksArray: Array) =>
     set(() => ({
-     selectedPlaylistTrackList: tracksArray.map(
+      selectedPlaylistTrackList: tracksArray.map(
         (track: object) => track.track["uri"]
       ),
     })),
-    setcurrentlyPlayingTrackUris: (uris: Array) => 
+  setCurrentlyPlayingTrackUris: (uris: Array) =>
     set(() => ({
-      currentlyPlayingTrackUris: uris
-    }))
+      currentlyPlayingTrackUris: uris,
+    })),
 }));
 
 export default useAuthStore;

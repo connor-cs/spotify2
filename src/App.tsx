@@ -12,7 +12,7 @@ import Nav from "./components/Nav";
 import ArtistPage from "./pages/ArtistPage";
 import AccountPage from "./pages/AccountPage"
 import Home from "./pages/Home";
-import Footer from "./components/Footer/Footer";
+import Footer from "./components/Player/Player";
 import useAuthStore from './context/zustand';
 
 

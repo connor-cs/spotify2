@@ -5,8 +5,8 @@ import {
   IoPlaySkipBack,
   IoPauseCircle,
 } from "react-icons/io5";
-import "./Footer.css";
-import useAuthStore from "../../context/zustand";
+import "./Player.css";
+import useAuthStore from "../../context/zustand.js";
 import { getTracksFromPlaylist } from "../../utils/GetUserInfoFunctions.js";
 
 // interface SpotifyPlayerProps {
@@ -28,8 +28,10 @@ const Footer: React.FC<SpotifyPlayerProps> = () => {
     selectedPlaylistId,
     selectedPlaylistTrackList,
     setCurrentPlaylistTrackList,
+    currentlyPlayingTrackUris
   } = useAuthStore();
   const { trackUri } = selectedTrack;
+  //I don't remember what this is for:
   const [currentlyPlayingUris, setCurrentlyPlayingTrackUris] = useState([])
   // const activePlaylist = currentPlaylistTrackList.length > 0
 
@@ -37,8 +39,8 @@ const Footer: React.FC<SpotifyPlayerProps> = () => {
   
   console.log({selectedTrack})
 
-  // let Spotifyplayer: Spotify.SpotifyPlayer | null = null;
 
+  //move this into playerfunctions file?
   const handlePlay = async () => {
     const accessToken = localStorage.getItem("access_token");
 
@@ -61,7 +63,7 @@ const Footer: React.FC<SpotifyPlayerProps> = () => {
     }
     setIsPlaying(true);
   };
-
+  //move this into playerfunctions file?
   const handlePause = async () => {
     const accessToken = localStorage.getItem("access_token");
 
@@ -81,7 +83,7 @@ const Footer: React.FC<SpotifyPlayerProps> = () => {
     }
     setIsPlaying(false);
   };
-
+  //move this into playerfunctions file?
   const handleNext = async () => {
     const accessToken = localStorage.getItem("access_token");
 
