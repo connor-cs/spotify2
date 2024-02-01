@@ -2,7 +2,7 @@
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
 
-const TestCard = ({ props }) => {
+const ArtistCard = ({ props }) => {
   const navigate = useNavigate()
 
   function nav() {
@@ -19,4 +19,4 @@ const TestCard = ({ props }) => {
   );
 };
 
-export default TestCard;
+export default ArtistCard;

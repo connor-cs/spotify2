@@ -1,8 +1,8 @@
 import {useEffect} from 'react'
-import TestCard from '../components/TestCard'
+import TestCard from '../components/ArtistCard'
 import { loginCallback } from '../utils/Login'
 
-const Home = ({results}) => {
+const SearchResultsContainer = ({results}) => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
@@ -26,4 +26,4 @@ const Home = ({results}) => {
   )
 }
 
-export default Home
+export default SearchResultsContainer
