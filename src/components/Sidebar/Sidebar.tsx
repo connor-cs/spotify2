@@ -1,7 +1,8 @@
 import { Image } from "react-bootstrap";
 import { MdHomeFilled, MdSearch } from "react-icons/md";
 import { IoLibrary } from "react-icons/io5";
-import PlaylistRow from "./PlaylistRow";
+import PlaylistRow from "../PlaylistRow";
+import "./Sidebar.css";
 
 const Sidebar = ({ playlists }) => {
   // console.log({playlists})

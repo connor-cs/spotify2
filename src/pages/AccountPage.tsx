@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar.js";
+import Sidebar from "../components/Sidebar/Sidebar.js";
 import {
   getTopTracks,
   getTopArtists,
