@@ -7,10 +7,15 @@ import { Market } from "@spotify/web-api-ts-sdk";
 import useAuthStore from "../context/zustand";
 
 const ArtistPage = () => {
+  const clientId = import.meta.env.VITE_CLIENT_ID
+  const clientSecret = import.meta.env.VITE_CLIENT_SECRET
   const api = SpotifyApi.withClientCredentials(
-    "1553a231a3b74e48bb3dc6efdce3cb72",
-    "37da88f137294d5a9f6a7ea57f0d4be9"
+    clientId,
+    clientSecret
   );
+
+  console.log('ENV', import.meta.env.VITE_CLIENT_ID)
+  console.log('ENV', import.meta.env.VITE_CLIENT_SECRET)
 
   const [loaded, setLoaded] = useState<boolean>(false);
   const [artistInfo, setArtistInfo] = useState<null>(null);
@@ -99,7 +104,6 @@ const ArtistPage = () => {
                           <p>{track.artists[0].name} </p>
                           <p> {track.album.name}</p>
                         </div>
-                        {/* <p>{track.artists[0].name}{" "} {track.album.name}</p> */}
                       </div>
                     </div>
                   ))
