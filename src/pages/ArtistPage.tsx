@@ -14,9 +14,6 @@ const ArtistPage = () => {
     clientSecret
   );
 
-  console.log('ENV', import.meta.env.VITE_CLIENT_ID)
-  console.log('ENV', import.meta.env.VITE_CLIENT_SECRET)
-
   const [loaded, setLoaded] = useState<boolean>(false);
   const [artistInfo, setArtistInfo] = useState<null>(null);
   const [topTracks, setTopTracks] = useState<[]>();

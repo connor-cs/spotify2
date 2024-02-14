@@ -28,9 +28,11 @@ function App() {
   const {isAuthenticated, accessToken} = useAuthStore()
 
 
+  const clientId = import.meta.env.VITE_CLIENT_ID
+  const clientSecret = import.meta.env.VITE_CLIENT_SECRET
   const api = SpotifyApi.withClientCredentials(
-    "1553a231a3b74e48bb3dc6efdce3cb72",
-    "37da88f137294d5a9f6a7ea57f0d4be9"
+    clientId,
+    clientSecret
   );
 
   // console.log(results);
