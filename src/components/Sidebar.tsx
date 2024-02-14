@@ -3,13 +3,11 @@ import { MdHomeFilled, MdSearch } from "react-icons/md";
 import { IoLibrary } from "react-icons/io5";
 import PlaylistRow from "./PlaylistRow";
 
-
 const Sidebar = ({ playlists }) => {
-
   // console.log({playlists})
-  
+
   return (
-    <aside className='sidebar'>
+    <aside className="sidebar">
       <div className="text-light">
         <Image
           className="spot-logo"
@@ -33,10 +31,10 @@ const Sidebar = ({ playlists }) => {
           </li>
         </ul>
       </div>
-        <div className="playlist-container text-light">
-          <h5>Your Playlists</h5>
-          <PlaylistRow playlists={playlists} />
-        </div>
+      <div className="playlist-container text-light">
+        <h5>Your Playlists</h5>
+        <PlaylistRow playlists={playlists} />
+      </div>
     </aside>
   );
 };

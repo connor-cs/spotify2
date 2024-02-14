@@ -8,7 +8,7 @@ import {
   ItemTypes,
 } from "@spotify/web-api-ts-sdk";
 import "./App.css";
-import Nav from "./components/Nav";
+import Nav from "./components/Navbar/Nav";
 import ArtistPage from "./pages/ArtistPage";
 import AccountPage from "./pages/AccountPage"
 import Home from "./pages/Home";

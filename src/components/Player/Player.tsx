@@ -9,18 +9,10 @@ import "./Player.css";
 import useAuthStore from "../../context/zustand.js";
 import { getTracksFromPlaylist } from "../../utils/GetUserInfoFunctions.js";
 
-// interface SpotifyPlayerProps {
-//   token: string;
-//   uris: [
-//     "spotify:track:2z772Yunx3jUbh6YLY8HU2",
-//     "spotify:track:6ivUoajqXRNVIyEGhRkucw"
-//   ]; // Array of track URIs to play
-// }
-
 const Footer: React.FC<SpotifyPlayerProps> = () => {
   const [player, setPlayer] = useState<Spotify.SpotifyPlayer | null>(null);
   const [paused, setPaused] = useState(false);
-  const [is_active, setActive] = useState(false);
+  const [isActive, setActive] = useState(false);
   const [deviceId, setDeviceId] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
   const {
@@ -28,17 +20,16 @@ const Footer: React.FC<SpotifyPlayerProps> = () => {
     selectedPlaylistId,
     selectedPlaylistTrackList,
     setCurrentPlaylistTrackList,
-    currentlyPlayingTrackUris
+    currentlyPlayingTrackUris,
   } = useAuthStore();
   const { trackUri } = selectedTrack;
   //I don't remember what this is for:
-  const [currentlyPlayingUris, setCurrentlyPlayingTrackUris] = useState([])
+  const [currentlyPlayingUris, setCurrentlyPlayingTrackUris] = useState([]);
   // const activePlaylist = currentPlaylistTrackList.length > 0
 
-  console.log({selectedPlaylistTrackList});
-  
-  console.log({selectedTrack})
+  console.log({ selectedPlaylistTrackList });
 
+  console.log({ selectedTrack });
 
   //move this into playerfunctions file?
   const handlePlay = async () => {
@@ -104,12 +95,13 @@ const Footer: React.FC<SpotifyPlayerProps> = () => {
     }
   };
 
+  //when playlist is clicked on from sidebar, get playlist id and use it to get tracks list
   useEffect(() => {
-    getTracksFromPlaylist(selectedPlaylistId).then((res) =>
-    setCurrentPlaylistTrackList(res)
-    // setListTracks(res)
+    getTracksFromPlaylist(selectedPlaylistId).then(
+      (res) => setCurrentPlaylistTrackList(res)
+      // setListTracks(res)
     );
-    setCurrentPlaylistTrackList
+    setCurrentPlaylistTrackList;
   }, [selectedPlaylistId]);
 
   useEffect(() => {

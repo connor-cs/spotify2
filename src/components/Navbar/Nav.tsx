@@ -4,9 +4,10 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import { AiFillHome } from "react-icons/ai";
 // import {Login} from '../utils/Login.js'
-import { Login } from "../utils/Login.js";
+import { login } from "../../utils/Login.js";
 import { useNavigate } from "react-router-dom";
-import useAuthStore from "../context/zustand";
+import useAuthStore from "../../context/zustand.js";
+import './Nav.css'
 
 const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
   }
 
   function handleLogin() {
-    Login();
+    login();
     navigate("/account");
   }
 
@@ -48,11 +49,15 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
           </Dropdown.Menu>
         </Dropdown>
 
-        <Button type="submit" onClick={(e, searchType) => submit(e, searchType)}>Search</Button>
+        <Button
+          type="submit"
+          onClick={(e, searchType) => submit(e, searchType)}
+        >
+          Search
+        </Button>
 
-        
-          <Button onClick={() => handleLogin()}>Log in</Button>
-        
+        <Button onClick={() => handleLogin()}>Log in</Button>
+
         {isAuthenticated ? (
           <Button onClick={() => console.log("authenticated")}>Test</Button>
         ) : null}
