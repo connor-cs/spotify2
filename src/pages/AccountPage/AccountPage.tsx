@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar/Sidebar.js";
+import Sidebar from "../../components/Sidebar/Sidebar.js";
 import {
   getTopTracks,
   getTopArtists,
   getUserPlaylists,
-} from "../utils/GetUserInfoFunctions.js";
-import TestCard from "../components/ArtistCard.js";
-import SongRow from "../components/SongRow.js";
+} from "../../utils/GetUserInfoFunctions.js";
+import TestCard from "../../components/ArtistCard.js";
+import SongRow from "../../components/SongRow.js";
 import { Artist, Track } from "@spotify/web-api-ts-sdk";
-import useAuthStore from "../context/zustand";
-
+import useAuthStore from "../../context/zustand.js";
+import './AccountPage.css'
 
 const AccountPage = () => {
   const [userProfile, setUserProfile] = useState<Profile>(null);
