@@ -23,6 +23,7 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -54,9 +55,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -67,23 +70,23 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
 }
 
-.siderbar > aside {
+.siderbar>aside {
   display: flex;
   flex-direction: column;
-  
+
 }
 
-.account-page {
-  width: 100%;
-}
+
 
 .artist-image {
   max-height: 150px;
@@ -98,13 +101,12 @@ button:focus-visible {
   color: white !important;
   cursor: pointer;
 }
+
 .card:hover {
   background-color: #282828 !important
 }
 
-.container {
-
-}
+.container {}
 
 .results-container {
   border: 2px solid red;
@@ -114,11 +116,6 @@ button:focus-visible {
 }
 
 
-
-.home-icon {
-  color: white;
-  cursor: pointer;
-}
 
 .list-item {
   cursor: pointer;
@@ -130,26 +127,13 @@ button:focus-visible {
   width: 100%;
 }
 
-.playlist> ul {
+.playlist>ul {
   margin: 0;
 }
 
 .playlist>ul>li:hover {
   background-color: #1a1a1a;
   cursor: pointer;
-}
-
-.playlist-container {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  width: 100%;
-  margin: none; 
-  
-}
-
-.playlist-container > ul {
-  border: solid;
 }
 
 
@@ -160,17 +144,6 @@ button:focus-visible {
 
 .profile {
   background-color: #121212 !important;
-}
-
-.sidebar {
-  background-color: #1a1a1a
-}
-
-.sidebar-top {
-  background-color: #121212;
-  margin: .5rem;
-  border: solid 1px #121212;
-  border-radius: 5px;
 }
 
 
@@ -189,12 +162,13 @@ button:focus-visible {
   background-color: #1f1f1f;
   opacity: 0.8;
 }
-.songRow-info > h1 {
+
+.songRow-info>h1 {
   font-size: 1rem;
-  align-self: flex-start
-  ;
+  align-self: flex-start;
 }
-.songRow-info > p {
+
+.songRow-info>p {
   font-size: 14px;
   margin-top: 3px;
   color: gray !important;
@@ -215,6 +189,7 @@ button:focus-visible {
   margin-top: 3px;
   color: gray !important;
 }
+
 .songRow-album {
   height: 40px !important;
   width: 40px !important
@@ -232,20 +207,22 @@ button:focus-visible {
 ul {
   list-style-type: none;
 }
+
 .ul {
   list-style-type: none;
   display: flex;
   flex-direction: column;
   align-items: start;
-  
+
 }
 
-.ul > li {
+.ul>li {
   margin: 0.5em;
   display: flex;
-        gap: 1rem;
-        cursor: pointer;
-        transition: 0.3s ease-in-out;
-        &:hover {
-          color: white;
-}
+  gap: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    color: white;
+  }
