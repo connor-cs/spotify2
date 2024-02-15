@@ -7,6 +7,7 @@ import { Market } from "@spotify/web-api-ts-sdk";
 import useAuthStore from "../context/zustand";
 
 const ArtistPage = () => {
+  
   const clientId = import.meta.env.VITE_CLIENT_ID
   const clientSecret = import.meta.env.VITE_CLIENT_SECRET
   const api = SpotifyApi.withClientCredentials(
@@ -30,6 +31,10 @@ const ArtistPage = () => {
     } catch (error) {
       console.error("Error fetching artist info", error);
     }
+  }
+
+  async function getArtistTopAlbums(artistId: string){
+    
   }
 
   async function getTopTracks(artistId: string, market: Market) {
