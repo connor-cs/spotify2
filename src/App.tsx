@@ -10,6 +10,7 @@ import {
 import "./App.css";
 import Nav from "./components/Navbar/Nav";
 import ArtistPage from "./pages/ArtistPage";
+import AlbumPage from "./pages/AlbumPage/AlbumPage"
 import AccountPage from "./pages/AccountPage/AccountPage"
 import Home from "./pages/Home";
 import Footer from "./components/Player/Player";
@@ -74,6 +75,7 @@ function App() {
           <Route path="/" element={<Home results={results} />} />
           <Route path="/artist/:id" element={<ArtistPage />} />
           <Route path="/account" element={<AccountPage />} />
+          <Route path="/album/:id" element={<AlbumPage />} />
         </Routes>
       </BrowserRouter>
       {isAuthenticated ? <Footer /> : <h2>not logged in</h2>}

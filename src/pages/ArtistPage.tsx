@@ -4,6 +4,7 @@ import { AiFillPauseCircle } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import { SpotifyApi } from "@spotify/web-api-ts-sdk";
 import { Market } from "@spotify/web-api-ts-sdk";
+import AlbumCard from "./components/card_components/AlbumCard.tsx"
 import useAuthStore from "../context/zustand";
 
 const ArtistPage = () => {
@@ -15,38 +16,50 @@ const ArtistPage = () => {
     clientSecret
   );
 
+
   const [loaded, setLoaded] = useState<boolean>(false);
   const [artistInfo, setArtistInfo] = useState<null>(null);
   const [topTracks, setTopTracks] = useState<[]>();
+  const [topAlbums, setTopAlbums] = useState<[]>()
   const { setCurrentTrack } = useAuthStore();
   const { id } = useParams<{ id: string }>();
-  //should I create a type called ArtistInfo??
+  //should I create a type called ArtistInfo
+
+  
 
   async function getArtistInfo(artistId: string) {
     try {
       const artist = await api.artists.get(artistId);
       setArtistInfo(artist);
       setLoaded(true);
-      console.log(artist);
     } catch (error) {
       console.error("Error fetching artist info", error);
     }
   }
 
   async function getArtistTopAlbums(artistId: string){
-    
+    const accessToken = localStorage.getItem("access_token");
+    const res = await fetch(`https://api.spotify.com/v1/artists/${artistId}/albums?limit=5`, {
+      method: "GET",
+      headers: {
+        Authorization: 'Bearer ' + accessToken
+      }
+    })
+    const data = await res.json()
+    console.log({data})
+    setTopAlbums(data.items)
   }
 
   async function getTopTracks(artistId: string, market: Market) {
     const tracks = await api.artists.topTracks(artistId, market);
     setTopTracks(tracks.tracks);
-    console.log(tracks);
   }
 
   //get data about artist
   useEffect(() => {
     getArtistInfo(id);
     getTopTracks(id, "US");
+    getArtistTopAlbums(id)
   }, [id]);
 
   return (
@@ -61,24 +74,18 @@ const ArtistPage = () => {
               <h1 className="text-light">{artistInfo.name}</h1>
             ) : null}
           </div>
-          <div className="top-tracks">
+          <div className='artist-page-main'>
+            <div className='top-albums'>
+              {topAlbums.map(album => {
+
+              })}
+            </div>
+            <div className="top-tracks">
             <ListGroup
               as="ol"
               numbered
               className="dp-flex flex-col justify-content-center"
             >
-              {/* {topTracks
-                ? topTracks.map((track) => (
-                    <ListGroup.Item key={track.uri} variant="dark" className="list-item" onClick={(e)=>{
-                      if (e.detail >= 2) setCurrentTrack(track.uri, track.id, track.name, track.artists[0].name, track.album.images[2].url)
-                    }}>
-                      <div className="ms-2">
-                        <div className="fw-bold">{track.name}</div>
-                        {track.album.name}
-                      </div>
-                      </ListGroup.Item>
-                  ))
-                : null} */}
               {topTracks
                 ? topTracks.map((track) => (
                     <div
@@ -112,6 +119,8 @@ const ArtistPage = () => {
                 : null}
             </ListGroup>
           </div>
+          </div>
+          
         </div>
       ) : (
         AiFillPauseCircle

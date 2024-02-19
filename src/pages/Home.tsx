@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import TestCard from "../components/ArtistCard";
+import ArtistCard from "../components/card_componentsArtistCard";
 import { loginCallback } from "../utils/Login";
 
 const SearchResultsContainer = ({ results }) => {

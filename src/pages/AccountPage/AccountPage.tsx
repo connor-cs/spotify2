@@ -5,7 +5,7 @@ import {
   getTopArtists,
   getUserPlaylists,
 } from "../../utils/GetUserInfoFunctions.js";
-import TestCard from "../../components/ArtistCard.js";
+import ArtistCard from "../../components/card_components/ArtistCard.js";
 import SongRow from "../../components/SongRow.js";
 import { Artist, Track } from "@spotify/web-api-ts-sdk";
 import useAuthStore from "../../context/zustand.js";
@@ -37,7 +37,6 @@ const AccountPage = () => {
       },
     });
     const userData = await response.json();
-    // console.log({ userData });
     setUserProfile(userData);
     const topArtists = await getTopArtists();
     setArtists(topArtists);
@@ -101,7 +100,7 @@ const AccountPage = () => {
             <div className="row">
               {artists?.map((artist) => (
                 <div key={artist.id} className="col">
-                  <TestCard props={artist} />
+                  <ArtistCard props={artist} />
                 </div>
               ))}
             </div>
