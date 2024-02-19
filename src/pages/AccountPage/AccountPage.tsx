@@ -9,16 +9,16 @@ import ArtistCard from "../../components/card_components/ArtistCard.js";
 import SongRow from "../../components/SongRow.js";
 import { Artist, Track } from "@spotify/web-api-ts-sdk";
 import useAuthStore from "../../context/zustand.js";
-import './AccountPage.css'
+import "./AccountPage.css";
 
 const AccountPage = () => {
   const [userProfile, setUserProfile] = useState<Profile>(null);
   const [artists, setArtists] = useState<Artist[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
   const [playlists, setPlaylists] = useState<any[]>([]);
-  const {currentTrack, setCurrentTrack} = useAuthStore()
+  const { currentTrack, setCurrentTrack } = useAuthStore();
   // console.log(currentTrack)
-  
+
   type Profile = {
     display_name: string;
     id: string;
@@ -61,7 +61,7 @@ const AccountPage = () => {
           console.error("Error fetching playlists:", error);
         });
     }
-  }, [userProfile, accessToken])
+  }, [userProfile, accessToken]);
 
   // console.log("tracks", tracks);
   // console.log("artists", artists);

@@ -1,17 +1,28 @@
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
-export const AlbumCard = ({props}) => {
-  
-  function nav(albumId){
-    navigate(`/album/${albumId}`)
+const AlbumCard = ({ album }: object) => {
+  const navigate = useNavigate();
+
+  function nav() {
+    navigate(`/album/${album.id}`);
   }
-  
+
+  const style = {
+    "margin-top": "1rem",
+    "margin-bottom": "none",
+    "color": "white"
+  }
+
   return (
-    <div key={props.id} onClick={()=>navigate({props.id})}>
-      <img src={props.images[1].url}/>
+    <div key={album.id} className="album-card" onClick={() => nav()}>
+      <img src={album.images[1].url} />
       <div className="">
-        <p>{props.name}</p>
-        <p>{props.release_date.slice(0,5)}<p style={{"display": "inline"}}>Album</p>
+        <p style={style}>{album.name}</p>
+        <p style={{ display: "inline", color: "white" }}>{album.release_date.slice(0, 4) + " -"}</p>
+        <p style={{ display: "inline", color: "white" }}> Album</p>
       </div>
-      </div>)
-}
+    </div>
+  );
+};
+
+export default AlbumCard;

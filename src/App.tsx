@@ -9,7 +9,7 @@ import {
 } from "@spotify/web-api-ts-sdk";
 import "./App.css";
 import Nav from "./components/Navbar/Nav";
-import ArtistPage from "./pages/ArtistPage";
+import ArtistPage from "./pages/ArtistPage/ArtistPage";
 import AlbumPage from "./pages/AlbumPage/AlbumPage"
 import AccountPage from "./pages/AccountPage/AccountPage"
 import Home from "./pages/Home";
