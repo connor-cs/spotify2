@@ -27,9 +27,9 @@ const Footer: React.FC<SpotifyPlayerProps> = () => {
   const [currentlyPlayingUris, setCurrentlyPlayingTrackUris] = useState([]);
   // const activePlaylist = currentPlaylistTrackList.length > 0
 
-  console.log({ selectedPlaylistTrackList });
+  // console.log({ selectedPlaylistTrackList });
 
-  console.log({ selectedTrack });
+  // console.log({ selectedTrack });
 
   //move this into playerfunctions file?
   const handlePlay = async () => {

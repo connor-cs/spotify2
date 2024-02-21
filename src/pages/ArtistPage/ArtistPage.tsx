@@ -72,14 +72,14 @@ const ArtistPage = () => {
             ) : null}
           </div>
           <div className="artist-page-main">
-            <h1>Discography</h1>
+            <h2 className="section-title" >Discography</h2>
             <div className="top-albums">
               {topAlbums?.map((album) => (
                 <AlbumCard album={album} />
               ))}
             </div>
             <div className="top-tracks">
-              <h1>Top Tracks</h1>
+              <h2 className="section-title">Top Tracks</h2>
               <ListGroup
                 as="ol"
                 numbered

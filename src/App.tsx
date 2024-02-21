@@ -75,7 +75,7 @@ function App() {
           <Route path="/" element={<Home results={results} />} />
           <Route path="/artist/:id" element={<ArtistPage />} />
           <Route path="/account" element={<AccountPage />} />
-          <Route path="/album/:id" element={<AlbumPage />} />
+          <Route path="/album/:albumId" element={<AlbumPage />} />
         </Routes>
       </BrowserRouter>
       {isAuthenticated ? <Footer /> : <h2>not logged in</h2>}

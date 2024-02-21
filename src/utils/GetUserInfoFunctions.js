@@ -53,3 +53,15 @@ export const getTracksFromPlaylist = async (currentPlaylistId) => {
   const tracks = await data.json();
   return tracks.items;
 };
+
+export const getAlbumInfo = async (albumId) => {
+  const accessToken = localStorage.getItem("access_token");
+  const res = await fetch(`https://api.spotify.com/v1/albums/${albumId}`, {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  });
+  const data = await res.json();
+  return data;
+};

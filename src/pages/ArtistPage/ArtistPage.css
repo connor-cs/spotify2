@@ -2,6 +2,18 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
+.album-card {
+  cursor: pointer;
+}
+
+.album-card:hover {
+  background-color: #1a1a1a;
+}
+
+.section-title{
+  color: white;
+  text-align: left
+}
