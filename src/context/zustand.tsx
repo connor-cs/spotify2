@@ -7,7 +7,6 @@ import { create } from "zustand";
 //
 //
 const useAuthStore = create((set) => ({
-  isAuthenticated: !!localStorage.getItem("access_token"),
   accessToken: localStorage.getItem("access_token"),
   selectedTrack: {
     trackUri: "",
@@ -28,6 +27,13 @@ const useAuthStore = create((set) => ({
   logout: () => {
     localStorage.removeItem("access_token");
     set({ isAuthenticated: false, accessToken: null });
+  },
+  isAccessTokenExpired() {
+    const expirationTime = localStorage.getItem("access_token_expires_at");
+    if (!expirationTime) return true;
+
+    const currentTime = new Date().getTime();
+    return currentTime > parseInt(expirationTime);
   },
   setCurrentTrack: (
     newTrackUri: string,

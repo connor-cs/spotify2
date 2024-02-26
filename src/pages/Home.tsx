@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import ArtistCard from "../components/card_componentsArtistCard";
+import ArtistCard from "../components/card_components/ArtistCard";
 import { loginCallback } from "../utils/Login";
 
 const SearchResultsContainer = ({ results }) => {
@@ -19,7 +19,7 @@ const SearchResultsContainer = ({ results }) => {
       {results.length != 0 ? (
         <div className="results-container">
           {results?.map((res) => (
-            <TestCard props={res} key={res.id} />
+            <ArtistCard props={res} key={res.id} />
           ))}
         </div>
       ) : null}

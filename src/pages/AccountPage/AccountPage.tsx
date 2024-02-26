@@ -5,6 +5,7 @@ import {
   getTopArtists,
   getUserPlaylists,
 } from "../../utils/GetUserInfoFunctions.js";
+import { getToken, isAccessTokenExpired } from "../../utils/Login.js";
 import ArtistCard from "../../components/card_components/ArtistCard.js";
 import SongRow from "../../components/SongRow.js";
 import { Artist, Track } from "@spotify/web-api-ts-sdk";
@@ -46,8 +47,19 @@ const AccountPage = () => {
 
   //get profile data and userID
   useEffect(() => {
-    getProfileData();
-    console.log({ userProfile });
+    if (isAccessTokenExpired()) {
+      const clientId = import.meta.env.VITE_CLIENT_ID
+      const refreshToken = localStorage.getItem("refresh_token");
+      const body = new URLSearchParams({
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+        client_id: clientId
+      });
+      getToken(body);
+    } else {
+      getProfileData();
+      console.log({ userProfile });
+    }
   }, []);
 
   //second useEffect for getting playlist data with userID

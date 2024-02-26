@@ -5,8 +5,9 @@ import { useParams } from "react-router-dom";
 import { SpotifyApi } from "@spotify/web-api-ts-sdk";
 import { Market } from "@spotify/web-api-ts-sdk";
 import AlbumCard from "../../components/card_components/AlbumCard.tsx";
-import "./ArtistPage.css"
+import "./ArtistPage.css";
 import useAuthStore from "../../context/zustand.tsx";
+import { isAccessTokenExpired, getToken } from "../../utils/Login.js";
 
 const ArtistPage = () => {
   const clientId = import.meta.env.VITE_CLIENT_ID;
@@ -54,9 +55,17 @@ const ArtistPage = () => {
 
   //get data about artist
   useEffect(() => {
-    getArtistInfo(id);
-    getTopTracks(id, "US");
-    getArtistTopAlbums(id);
+    if (isAccessTokenExpired()) {
+      const body = new URLSearchParams({
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+      });
+      getToken(body);
+    } else {
+      getArtistInfo(id);
+      getTopTracks(id, "US");
+      getArtistTopAlbums(id);
+    }
   }, [id]);
 
   return (
@@ -72,7 +81,7 @@ const ArtistPage = () => {
             ) : null}
           </div>
           <div className="artist-page-main">
-            <h2 className="section-title" >Discography</h2>
+            <h2 className="section-title">Discography</h2>
             <div className="top-albums">
               {topAlbums?.map((album) => (
                 <AlbumCard album={album} />

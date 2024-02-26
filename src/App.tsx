@@ -13,7 +13,7 @@ import ArtistPage from "./pages/ArtistPage/ArtistPage";
 import AlbumPage from "./pages/AlbumPage/AlbumPage"
 import AccountPage from "./pages/AccountPage/AccountPage"
 import Home from "./pages/Home";
-import Footer from "./components/Player/Player";
+import Player from "./components/Player/Player";
 import useAuthStore from './context/zustand';
 
 
@@ -78,7 +78,7 @@ function App() {
           <Route path="/album/:albumId" element={<AlbumPage />} />
         </Routes>
       </BrowserRouter>
-      {isAuthenticated ? <Footer /> : <h2>not logged in</h2>}
+      {isAuthenticated ? <Player /> : null}
     </main>
   );
 }

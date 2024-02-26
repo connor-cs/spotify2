@@ -24,7 +24,7 @@ async function generateCodeChallenge(codeVerifier) {
   return base64encode(digest);
 }
 
-async function getToken(body) {
+export async function getToken(body) {
   try {
     const response = await fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
@@ -37,12 +37,27 @@ async function getToken(body) {
       throw new Error("HTTP status " + response.status);
     }
     const data = await response.json();
+
     localStorage.setItem("refresh_token", data.refresh_token);
     localStorage.setItem("access_token", data.access_token);
+
+    const expiresIn = data.expires_in; // Token expiration time in seconds
+    const expirationTime = new Date().getTime() + expiresIn * 1000; // Convert seconds to milliseconds
+    localStorage.setItem("access_token_expires_at", expirationTime);
+
     window.location.href = "/account";
+    return data;
   } catch (error) {
     console.error("Error:", error);
   }
+}
+
+export function isAccessTokenExpired() {
+  const expirationTime = localStorage.getItem("access_token_expires_at");
+  if (!expirationTime) return true;
+
+  const currentTime = new Date().getTime();
+  return currentTime > parseInt(expirationTime);
 }
 
 export function login() {

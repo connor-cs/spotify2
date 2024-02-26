@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";import useAuthStore from "../../context/zustand.tsx";
+import { useParams } from "react-router-dom";
+import useAuthStore from "../../context/zustand.tsx";
+import "./AlbumPage.css";
+import { isAccessTokenExpired, getToken } from "../../utils/Login.js";
 // import {getAlbumInfo} from '../../utils/GetUserInfoFunctions.js'
 
 const AlbumPage = () => {
   const { albumId } = useParams<{ albumId: string }>();
   const [albumInfo, setAlbumInfo] = useState();
   const { setCurrentTrack } = useAuthStore();
-  
 
   const getAlbumInfo = async (albumId: string) => {
     const accessToken = localStorage.getItem("access_token");
@@ -17,47 +19,50 @@ const AlbumPage = () => {
       },
     });
     const data = await res.json();
+    console.log({ data });
     setAlbumInfo(data);
     console.log({ albumInfo });
   };
 
   useEffect(() => {
-    getAlbumInfo(albumId);
+    if (isAccessTokenExpired()) {
+      const clientId = import.meta.env.VITE_CLIENT_ID
+      const refreshToken = localStorage.getItem("refresh_token");
+      const body = new URLSearchParams({
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+        client_id: clientId
+      });
+      getToken(body);
+    } else {
+      getAlbumInfo(albumId);
+    }
   }, []);
 
   return (
     <div>
       <div className="top-section">
-        <img src={albumInfo.images[1]?.url} />
-        <div className="album-info-section">
-          <h1>{albumInfo.name}</h1>
-        </div>
+        {albumInfo ? (
+          <>
+            fhgc
+            <img src={albumInfo.images[1]?.url} />
+            <div className="album-info-section">
+              <h1 style={{ display: "inline" }}>{albumInfo.name + " "}</h1>{" "}
+              <h3 style={{ display: "inline" }}>
+                {" - " + albumInfo.release_date.slice(0, 4)}
+              </h3>
+            </div>
+          </>
+        ) : null}
       </div>
       <div className="album-songs-container">
-        {albumInfo.tracks.map((track) => (
-          <div
-            onClick={() =>
-              setCurrentTrack(
-                track.uri,
-                track.id,
-                track.name,
-                track.artists[0].name,
-                track.album.images[2].url
-              )
-            }
-            className="songRow d-flex"
-            key={track.id}
-          >
-            <img className="songRow-album" src={track.album.images[2].url} />
-            <div className="songRow-info text-light">
-              <h1 className="fs-4 songRow-trackName m-0">{track.name}</h1>
-              <div className="songRow-artist-album">
-                <p>{track.artists[0].name} </p>
-                <p> {track.album.name}</p>
-              </div>
-            </div>
-          </div>
-        ))}
+        {albumInfo
+          ? albumInfo.tracks.items.map((track) => {
+              <div className="songRow">
+                <p>{track.name}</p>
+              </div>;
+            })
+          : null}
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ const AlbumCard = ({ album }: object) => {
 
   const style = {
     "margin-top": "1rem",
-    "margin-bottom": "none",
+    "marginBottom": "none",
     "color": "white"
   }
 
