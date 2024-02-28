@@ -9,11 +9,5 @@ If you are developing a production application, we recommend updating the config
 
 - Configure the top-level `parserOptions` property like this:
 
-//test button logs 'authenticated' when not
-//must remove old data from local storage
-//do this when app starts?
-
-//display artist's top albums on artist page
-//make album page
-
+//clear local storage and renav on logout
 //

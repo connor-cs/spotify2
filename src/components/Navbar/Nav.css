@@ -2,3 +2,8 @@
   color: white;
   cursor: pointer;
 }
+
+.profile-pic {
+  border-radius: 50%;
+  cursor: pointer;
+}

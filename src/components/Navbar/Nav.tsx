@@ -11,7 +11,7 @@ import './Nav.css'
 
 const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
   const navigate = useNavigate();
-  const { isAuthenticated, accessToken } = useAuthStore();
+  const { isAuthenticated, accessToken, userProfilePic } = useAuthStore();
 
   function goHome() {
     navigate("/");
@@ -24,6 +24,9 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
 
   return (
     <div className="d-flex m-2">
+      
+        <img className="profile-pic" src = {userProfilePic} onClick={()=>navigate("/account")}/>
+      
       <AiFillHome
         size={40}
         className="home-icon mr-5"

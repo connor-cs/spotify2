@@ -15,6 +15,7 @@ const useAuthStore = create((set) => ({
     artist: "",
     image: "",
   },
+  userProfilePic: "",
   selectedPlaylistId: "",
   //track uris from the selected playlist:
   selectedPlaylistTrackList: [],
@@ -34,6 +35,11 @@ const useAuthStore = create((set) => ({
 
     const currentTime = new Date().getTime();
     return currentTime > parseInt(expirationTime);
+  },
+  setUserProfilePic: (profPicUrl: string) => {
+    set(() => ({
+      userProfilePic: profPicUrl
+    }))
   },
   setCurrentTrack: (
     newTrackUri: string,

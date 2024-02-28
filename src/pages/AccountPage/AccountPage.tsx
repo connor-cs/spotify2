@@ -17,7 +17,7 @@ const AccountPage = () => {
   const [artists, setArtists] = useState<Artist[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
   const [playlists, setPlaylists] = useState<any[]>([]);
-  const { currentTrack, setCurrentTrack } = useAuthStore();
+  const { currentTrack, setCurrentTrack, setUserProfilePic } = useAuthStore();
   // console.log(currentTrack)
 
   type Profile = {
@@ -39,6 +39,8 @@ const AccountPage = () => {
     });
     const userData = await response.json();
     setUserProfile(userData);
+    console.log(userData)
+    setUserProfilePic(userData?.images[0].url)
     const topArtists = await getTopArtists();
     setArtists(topArtists);
     const topTracks = await getTopTracks();
