@@ -26,7 +26,8 @@ function App() {
 
   // type SearchType = (<Track> | <Artist> | <Album>)
 
-  const {isAuthenticated, accessToken} = useAuthStore()
+  // const {isAccessTokenExpired} = useAuthStore()
+  // const isAuthenticated = isAccessTokenExpired()
 
 
   const clientId = import.meta.env.VITE_CLIENT_ID
@@ -78,7 +79,8 @@ function App() {
           <Route path="/album/:albumId" element={<AlbumPage />} />
         </Routes>
       </BrowserRouter>
-      {isAuthenticated ? <Player /> : null}
+      {/* {isAuthenticated ? <Player /> : null} */}
+      <Player />
     </main>
   );
 }

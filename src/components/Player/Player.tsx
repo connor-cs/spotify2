@@ -7,6 +7,7 @@ import {
 } from "react-icons/io5";
 import "./Player.css";
 import useAuthStore from "../../context/zustand.js";
+import { isAccessTokenExpired, getToken } from "../../utils/Login.js";
 import { getTracksFromPlaylist } from "../../utils/GetUserInfoFunctions.js";
 
 const Player: React.FC<SpotifyPlayerProps> = () => {
@@ -55,7 +56,8 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
     setIsPlaying(true);
   };
   //move this into playerfunctions file?
-  const handlePause = async () => {
+  const handlePause = async () => {eifjccnflcubhntheevhldtehteefurdrtjbkifcjifc
+    
     const accessToken = localStorage.getItem("access_token");
 
     await fetch(
@@ -106,6 +108,7 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
 
   useEffect(() => {
     if (isAccessTokenExpired()) {
+      const refreshToken = localStorage.getItem("refresh_token");
       const body = new URLSearchParams({
         grant_type: "refresh_token",
         refresh_token: refreshToken,
