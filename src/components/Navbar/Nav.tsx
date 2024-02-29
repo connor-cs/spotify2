@@ -7,12 +7,13 @@ import { AiFillHome } from "react-icons/ai";
 import { login } from "../../utils/Login.js";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../context/zustand.js";
-import './Nav.css'
+import "./Nav.css";
 
 const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
   const navigate = useNavigate();
-  const { isAuthenticated, accessToken, userProfilePic } = useAuthStore();
-
+  const { isAccessTokenExpired, accessToken, userProfilePic } = useAuthStore();
+  const isAuthenticated = !isAccessTokenExpired();
+  
   function goHome() {
     navigate("/");
   }
@@ -22,11 +23,18 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
     navigate("/account");
   }
 
+  function handleLogout() {
+    
+  }
+
   return (
     <div className="d-flex m-2">
-      
-        <img className="profile-pic" src = {userProfilePic} onClick={()=>navigate("/account")}/>
-      
+      <img
+        className="profile-pic"
+        src={userProfilePic}
+        onClick={() => navigate("/account")}
+      />
+
       <AiFillHome
         size={40}
         className="home-icon mr-5"
@@ -58,12 +66,9 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
         >
           Search
         </Button>
-
-        <Button onClick={() => handleLogin()}>Log in</Button>
-
-        {isAuthenticated ? (
-          <Button onClick={() => console.log("authenticated")}>Test</Button>
-        ) : null}
+        {isAuthenticated ? null : (
+          <Button onClick={() => handleLogin()}>Log in</Button>
+        )}
       </InputGroup>
     </div>
   );

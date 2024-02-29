@@ -39,8 +39,8 @@ const AccountPage = () => {
     });
     const userData = await response.json();
     setUserProfile(userData);
-    console.log(userData)
-    setUserProfilePic(userData?.images[0].url)
+    console.log(userData);
+    setUserProfilePic(userData?.images[0].url);
     const topArtists = await getTopArtists();
     setArtists(topArtists);
     const topTracks = await getTopTracks();
@@ -50,12 +50,12 @@ const AccountPage = () => {
   //get profile data and userID
   useEffect(() => {
     if (isAccessTokenExpired()) {
-      const clientId = import.meta.env.VITE_CLIENT_ID
+      const clientId = import.meta.env.VITE_CLIENT_ID;
       const refreshToken = localStorage.getItem("refresh_token");
       const body = new URLSearchParams({
         grant_type: "refresh_token",
         refresh_token: refreshToken,
-        client_id: clientId
+        client_id: clientId,
       });
       getToken(body);
     } else {

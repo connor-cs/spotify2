@@ -34,7 +34,7 @@ const useAuthStore = create((set) => ({
     if (!expirationTime) return true;
 
     const currentTime = new Date().getTime();
-    return currentTime > parseInt(expirationTime);
+    return currentTime > parseInt(expirationTime, 10);
   },
   setUserProfilePic: (profPicUrl: string) => {
     set(() => ({

@@ -56,8 +56,7 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
     setIsPlaying(true);
   };
   //move this into playerfunctions file?
-  const handlePause = async () => {eifjccnflcubhntheevhldtehteefurdrtjbkifcjifc
-    
+  const handlePause = async () => {
     const accessToken = localStorage.getItem("access_token");
 
     await fetch(
