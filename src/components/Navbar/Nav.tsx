@@ -11,9 +11,9 @@ import "./Nav.css";
 
 const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
   const navigate = useNavigate();
-  const { isAccessTokenExpired, accessToken, userProfilePic } = useAuthStore();
+  const { isAccessTokenExpired, accessToken, userProfilePic, setUserProfilePic } = useAuthStore();
   const isAuthenticated = !isAccessTokenExpired();
-  
+
   function goHome() {
     navigate("/");
   }
@@ -24,7 +24,9 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
   }
 
   function handleLogout() {
-    
+    navigate("/");
+    localStorage.clear();
+    setUserProfilePic("")
   }
 
   return (
@@ -66,7 +68,9 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
         >
           Search
         </Button>
-        {isAuthenticated ? null : (
+        {isAuthenticated ? (
+          <button onClick={() => handleLogout()}>Log out</button>
+        ) : (
           <Button onClick={() => handleLogin()}>Log in</Button>
         )}
       </InputGroup>
