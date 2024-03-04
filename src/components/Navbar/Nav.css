@@ -5,5 +5,16 @@
 
 .profile-pic {
   border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
   cursor: pointer;
+  margin: .3rem
+}
+
+.home-icon {
+  margin: .4rem;
+}
+
+.search-bar {
+  margin-top: .3rem;
 }

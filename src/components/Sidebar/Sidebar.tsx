@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Image } from "react-bootstrap";
 import { MdHomeFilled, MdSearch } from "react-icons/md";
 import { IoLibrary } from "react-icons/io5";
@@ -5,8 +6,7 @@ import PlaylistRow from "../PlaylistRow";
 import "./Sidebar.css";
 
 const Sidebar = ({ playlists }) => {
-  // console.log({playlists})
-
+const nav = useNavigate()
   return (
     <aside className="sidebar">
       <div className="text-light">
@@ -20,9 +20,9 @@ const Sidebar = ({ playlists }) => {
         <ul className="ul">
           <li>
             <MdHomeFilled />
-            <h5>Home</h5>
+            <h5 onClick={()=>nav('/')}>Home</h5>
           </li>
-          <li>
+          <li >
             <MdSearch />
             <h5>Search</h5>
           </li>

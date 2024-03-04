@@ -96,7 +96,7 @@ const AccountPage = () => {
         <div className="profile col container-lg ">
           <img
             src={userProfile.images[1]?.url}
-            className="rounded-circle shadow-4-strong"
+            className="rounded-circle shadow-4-strong profile-picture"
           />
           <h1 className="text-light">{userProfile?.display_name}</h1>
           <div className="tracks-container container text-light ">
@@ -109,7 +109,7 @@ const AccountPage = () => {
               ))}
             </div>
           </div>
-          <div className="artists-container text-light border border-secondary container">
+          <div className="artists-container text-light container">
             <h3 className="col">Top artists</h3>
             <div className="row">
               {artists?.map((artist) => (

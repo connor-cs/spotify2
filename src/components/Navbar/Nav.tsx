@@ -11,7 +11,12 @@ import "./Nav.css";
 
 const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
   const navigate = useNavigate();
-  const { isAccessTokenExpired, accessToken, userProfilePic, setUserProfilePic } = useAuthStore();
+  const {
+    isAccessTokenExpired,
+    accessToken,
+    userProfilePic,
+    setUserProfilePic,
+  } = useAuthStore();
   const isAuthenticated = !isAccessTokenExpired();
 
   function goHome() {
@@ -26,7 +31,7 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
   function handleLogout() {
     navigate("/");
     localStorage.clear();
-    setUserProfilePic("")
+    setUserProfilePic("");
   }
 
   return (
@@ -38,11 +43,11 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
       />
 
       <AiFillHome
-        size={40}
+        size={45}
         className="home-icon mr-5"
         onClick={() => goHome()}
       />
-      <InputGroup className="mb-3">
+      <InputGroup className="mb-3 search-bar">
         <Form.Control
           type="text"
           onChange={(e) => handleChange(e.target.value)}
@@ -64,7 +69,10 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
 
         <Button
           type="submit"
-          onClick={(e, searchType) => submit(e, searchType)}
+          onClick={(e, searchType) => {
+            submit(e, searchType);
+            goHome();
+          }}
         >
           Search
         </Button>

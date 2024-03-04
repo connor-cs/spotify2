@@ -108,7 +108,7 @@ button:focus-visible {
 
 
 .results-container {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   display: grid;
   grid-template-rows: 200px repeat(3, 200px);
   grid-template-columns: repeat(4, 150px)
@@ -139,10 +139,6 @@ button:focus-visible {
 .playlist-name {
   width: 100%;
   padding: 1rem;
-}
-
-.profile {
-  background-color: #121212 !important;
 }
 
 
