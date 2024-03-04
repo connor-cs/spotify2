@@ -36,11 +36,14 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
 
   return (
     <div className="d-flex m-2">
-      <img
+      {isAuthenticated ? (
+        <img
         className="profile-pic"
         src={userProfilePic}
         onClick={() => navigate("/account")}
       />
+      ) : null}
+      
 
       <AiFillHome
         size={45}
