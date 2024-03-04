@@ -15,6 +15,22 @@
   margin: .4rem;
 }
 
+.nav-bar {
+  justify-content: space-between;
+}
+
+.nav-button {
+color: white;
+cursor: pointer;
+background-color: #1f1f1f;
+border: none;
+}
+
+.nav-button:hover{
+  background-color: #2a2a2a;
+  border: none;
+}
+
 .search-bar {
   margin-top: .3rem;
 }

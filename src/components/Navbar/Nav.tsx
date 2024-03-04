@@ -35,7 +35,7 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
   }
 
   return (
-    <div className="d-flex m-2">
+    <div className="d-flex m-2 nav-bar">
       {isAuthenticated ? (
         <img
         className="profile-pic"
@@ -80,9 +80,9 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
           Search
         </Button>
         {isAuthenticated ? (
-          <button onClick={() => handleLogout()}>Log out</button>
+          <button className="nav-button" onClick={() => handleLogout()}>Log out</button>
         ) : (
-          <Button onClick={() => handleLogin()}>Log in</Button>
+          <Button className="nav-button" onClick={() => handleLogin()}>Log in</Button>
         )}
       </InputGroup>
     </div>
