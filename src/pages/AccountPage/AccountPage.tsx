@@ -100,7 +100,7 @@ const AccountPage = () => {
           />
           <h1 className="text-light">{userProfile?.display_name}</h1>
           <div className="tracks-container container text-light ">
-            <h3>Top tracks</h3>
+            <h3>Your top tracks</h3>
             <div className="d-flex flex-column">
               {tracks?.map((track) => (
                 <div key={track.id}>

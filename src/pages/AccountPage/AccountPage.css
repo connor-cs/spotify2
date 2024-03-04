@@ -10,3 +10,17 @@
 .profile {
   background-color: #121212 !important;
 }
+
+.tracks-container {
+  background-color: #121212;
+  margin-top: 2rem;
+}
+
+.tracks-container > h3 {
+  text-align: left;
+}
+
+.spot-logo {
+  height: 4rem;
+  width: auto
+}

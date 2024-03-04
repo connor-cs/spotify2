@@ -21,3 +21,9 @@
 .playlist-container>ul {
   border: solid;
 }
+
+.siderbar>aside {
+  display: flex;
+  flex-direction: column;
+
+}

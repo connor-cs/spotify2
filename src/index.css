@@ -80,13 +80,6 @@ button:focus-visible {
   }
 }
 
-.siderbar>aside {
-  display: flex;
-  flex-direction: column;
-
-}
-
-
 
 .artist-image {
   max-height: 150px;
@@ -188,15 +181,6 @@ button:focus-visible {
 .songRow-album {
   height: 40px !important;
   width: 40px !important
-}
-
-.spot-logo {
-  height: 4rem;
-  width: auto
-}
-
-.tracks-container {
-  background-color: #121212;
 }
 
 ul {
