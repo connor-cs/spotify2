@@ -7,7 +7,7 @@ import {
 } from "../../utils/GetUserInfoFunctions.js";
 import { getToken, isAccessTokenExpired } from "../../utils/Login.js";
 import ArtistCard from "../../components/card_components/ArtistCard.js";
-import SongRow from "../../components/SongRow.js";
+import SongRow from "../../components/SongRow/SongRow.js";
 import { Artist, Track } from "@spotify/web-api-ts-sdk";
 import useAuthStore from "../../context/zustand.js";
 import "./AccountPage.css";
@@ -39,7 +39,7 @@ const AccountPage = () => {
     });
     const userData = await response.json();
     setUserProfile(userData);
-    console.log(userData);
+    // console.log(userData);
     setUserProfilePic(userData?.images[0].url);
     const topArtists = await getTopArtists();
     setArtists(topArtists);

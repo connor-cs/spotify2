@@ -1,4 +1,5 @@
-import useAuthStore from "../context/zustand";
+import useAuthStore from "../../context/zustand";
+import './SongRow.css'
 
 const SongRow = ({ track }) => {
   const { setCurrentTrack, setCurrentlyPlayingTrackUri } = useAuthStore();

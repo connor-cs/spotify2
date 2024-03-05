@@ -7,7 +7,7 @@ import { isAccessTokenExpired, getToken } from "../../utils/Login.js";
 
 const AlbumPage = () => {
   const { albumId } = useParams<{ albumId: string }>();
-  const [albumInfo, setAlbumInfo] = useState();
+  const [albumInfo, setAlbumInfo] = useState(null);
   const { setCurrentTrack } = useAuthStore();
 
   const getAlbumInfo = async (albumId: string) => {
@@ -19,23 +19,27 @@ const AlbumPage = () => {
       },
     });
     const data = await res.json();
-    console.log({ data });
+    console.log(data);
     setAlbumInfo(data);
     console.log({ albumInfo });
   };
 
   useEffect(() => {
     if (isAccessTokenExpired()) {
-      const clientId = import.meta.env.VITE_CLIENT_ID
+      const clientId = import.meta.env.VITE_CLIENT_ID;
       const refreshToken = localStorage.getItem("refresh_token");
       const body = new URLSearchParams({
         grant_type: "refresh_token",
         refresh_token: refreshToken,
-        client_id: clientId
+        client_id: clientId,
       });
       getToken(body);
     } else {
-      getAlbumInfo(albumId);
+      try {
+        getAlbumInfo(albumId);
+      } catch (e) {
+        console.log(e);
+      }
     }
   }, []);
 
@@ -44,7 +48,6 @@ const AlbumPage = () => {
       <div className="top-section">
         {albumInfo ? (
           <>
-            fhgc
             <img src={albumInfo.images[1]?.url} />
             <div className="album-info-section">
               <h1 style={{ display: "inline" }}>{albumInfo.name + " "}</h1>{" "}
