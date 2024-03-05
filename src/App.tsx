@@ -12,9 +12,10 @@ import Nav from "./components/Navbar/Nav";
 import ArtistPage from "./pages/ArtistPage/ArtistPage";
 import AlbumPage from "./pages/AlbumPage/AlbumPage";
 import AccountPage from "./pages/AccountPage/AccountPage";
-import Home from "./pages/Home";
+import Home from "./pages/SearchResultsContainer";
 import Player from "./components/Player/Player";
 import useAuthStore from "./context/zustand";
+import SearchResultsContainer from "./pages/SearchResultsContainer";
 
 function App() {
   const [searchText, setSearchText] = useState("");
@@ -72,7 +73,7 @@ function App() {
           setSearchType={setSearchType}
         />
         <Routes>
-          <Route path="/" element={<Home results={results} />} />
+          <Route path="/" element={<SearchResultsContainer results={results} />} />
           <Route path="/artist/:id" element={<ArtistPage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/album/:albumId" element={<AlbumPage />} />
