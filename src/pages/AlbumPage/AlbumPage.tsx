@@ -19,7 +19,6 @@ const AlbumPage = () => {
       },
     });
     const data = await res.json();
-    console.log(data);
     setAlbumInfo(data);
     console.log({ albumInfo });
   };
@@ -35,11 +34,7 @@ const AlbumPage = () => {
       });
       getToken(body);
     } else {
-      try {
-        getAlbumInfo(albumId);
-      } catch (e) {
-        console.log(e);
-      }
+      getAlbumInfo(albumId).catch((error) => console.log(error))
     }
   }, []);
 
@@ -60,11 +55,11 @@ const AlbumPage = () => {
       </div>
       <div className="album-songs-container">
         {albumInfo
-          ? albumInfo.tracks.items.map((track) => {
-              <div className="songRow">
-                <p>{track.name}</p>
-              </div>;
-            })
+          ? albumInfo.tracks.items.map((track) => (
+            <div className="songRow" key={track.id}>
+              <p>{track.name}</p>
+            </div>
+          ))
           : null}
       </div>
     </div>
