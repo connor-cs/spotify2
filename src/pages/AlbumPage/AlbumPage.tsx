@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import useAuthStore from "../../context/zustand.tsx";
 import "./AlbumPage.css";
 import { isAccessTokenExpired, getToken } from "../../utils/Login.js";
+import useAuthStore from "../../context/zustand.tsx";
 // import {getAlbumInfo} from '../../utils/GetUserInfoFunctions.js'
 
 const AlbumPage = () => {
@@ -36,6 +37,7 @@ const AlbumPage = () => {
     } else {
       getAlbumInfo(albumId).catch((error) => console.log(error))
     }
+    console.log(albumInfo)
   }, []);
 
   return (
