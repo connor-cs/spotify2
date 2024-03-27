@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import useAuthStore from "../../context/zustand.tsx";
 import "./AlbumPage.css";
 import { isAccessTokenExpired, getToken } from "../../utils/Login.js";
-import useAuthStore from "../../context/zustand.tsx";
+import { fetchWithAuth } from "../../utils/GetUserInfoFunctions";
+
 // import {getAlbumInfo} from '../../utils/GetUserInfoFunctions.js'
 
 const AlbumPage = () => {
@@ -11,17 +12,20 @@ const AlbumPage = () => {
   const [albumInfo, setAlbumInfo] = useState(null);
   const { setCurrentTrack } = useAuthStore();
 
+  
   const getAlbumInfo = async (albumId: string) => {
-    const accessToken = localStorage.getItem("access_token");
-    const res = await fetch(`https://api.spotify.com/v1/albums/${albumId}`, {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + accessToken,
-      },
-    });
-    const data = await res.json();
-    setAlbumInfo(data);
-    console.log({ albumInfo });
+    try {
+      const res = await fetchWithAuth(
+        `/albums/${albumId}`,
+        isAccessTokenExpired,
+        getToken
+      );
+      const data = await res.json();
+      setAlbumInfo(data);
+
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -35,9 +39,9 @@ const AlbumPage = () => {
       });
       getToken(body);
     } else {
-      getAlbumInfo(albumId).catch((error) => console.log(error))
+      getAlbumInfo(albumId).catch((error) => console.log(error));
     }
-    console.log(albumInfo)
+    console.log(albumInfo);
   }, []);
 
   return (
@@ -58,10 +62,10 @@ const AlbumPage = () => {
       <div className="album-songs-container">
         {albumInfo
           ? albumInfo.tracks.items.map((track) => (
-            <div className="songRow" key={track.id}>
-              <p>{track.name}</p>
-            </div>
-          ))
+              <div className="songRow" key={track.id}>
+                <p>{track.name}</p>
+              </div>
+            ))
           : null}
       </div>
     </div>

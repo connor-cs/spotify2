@@ -1,19 +1,20 @@
-import useAuthStore from "../context/zustand";
-const { isAccessTokenExpired } = useAuthStore()
+
 const API_BASE_URL = "https://api.spotify.com/v1";
 
-export async function fetchWithAuth(url, isAccessTokenExpired, getToken ){
+export async function fetchWithAuth(url, isAccessTokenExpired, getToken) {
   const accessToken = localStorage.getItem("access_token");
   if (!accessToken || isAccessTokenExpired()) {
     const clientId = import.meta.env.VITE_CLIENT_ID;
-      const refreshToken = localStorage.getItem("refresh_token");
-      const body = new URLSearchParams({
-        grant_type: "refresh_token",
-        refresh_token: refreshToken,
-        client_id: clientId,
-      });
-      getToken(body);
+    const refreshToken = localStorage.getItem("refresh_token");
+    const body = new URLSearchParams({
+      grant_type: "refresh_token",
+      refresh_token: refreshToken,
+      client_id: clientId,
+    });
+    getToken(body);
   }
+  const headers = { Authorization: "Bearer " + accessToken };
+  return fetch(API_BASE_URL + url, { headers });
 }
 
 export async function getTopTracks() {
