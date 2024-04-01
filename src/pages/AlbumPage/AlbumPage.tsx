@@ -29,19 +29,20 @@ const AlbumPage = () => {
   };
 
   useEffect(() => {
-    if (isAccessTokenExpired()) {
-      const clientId = import.meta.env.VITE_CLIENT_ID;
-      const refreshToken = localStorage.getItem("refresh_token");
-      const body = new URLSearchParams({
-        grant_type: "refresh_token",
-        refresh_token: refreshToken,
-        client_id: clientId,
-      });
-      getToken(body);
-    } else {
-      getAlbumInfo(albumId).catch((error) => console.log(error));
-    }
-    console.log(albumInfo);
+    // if (isAccessTokenExpired()) {
+    //   const clientId = import.meta.env.VITE_CLIENT_ID;
+    //   const refreshToken = localStorage.getItem("refresh_token");
+    //   const body = new URLSearchParams({
+    //     grant_type: "refresh_token",
+    //     refresh_token: refreshToken,
+    //     client_id: clientId,
+    //   });
+    //   getToken(body);
+    // } else {
+    //   getAlbumInfo(albumId).catch((error) => console.log(error));
+    // }
+    // console.log(albumInfo);
+    getAlbumInfo(albumId)
   }, []);
 
   return (

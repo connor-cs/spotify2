@@ -6,6 +6,7 @@ import {
   getUserPlaylists,
 } from "../../utils/GetUserInfoFunctions.js";
 import { getToken, isAccessTokenExpired } from "../../utils/Login.js";
+import { fetchWithAuth } from "../../utils/GetUserInfoFunctions";
 import ArtistCard from "../../components/card_components/ArtistCard.js";
 import SongRow from "../../components/SongRow/SongRow.js";
 import { Artist, Track } from "@spotify/web-api-ts-sdk";
@@ -30,38 +31,23 @@ const AccountPage = () => {
   const accessToken = localStorage.getItem("access_token");
 
   async function getProfileData() {
-    const accessToken = localStorage.getItem("access_token");
-    //get user data:
-    const response = await fetch("https://api.spotify.com/v1/me", {
-      headers: {
-        Authorization: "Bearer " + accessToken,
-      },
-    });
-    const userData = await response.json();
-    setUserProfile(userData);
-    // console.log(userData);
-    setUserProfilePic(userData?.images[0].url);
-    const topArtists = await getTopArtists();
-    setArtists(topArtists);
-    const topTracks = await getTopTracks();
-    setTracks(topTracks);
+    try {
+      const res = await fetchWithAuth("/me", isAccessTokenExpired, getToken);
+      const profileData = await res.json();
+      setUserProfile(profileData);
+      setUserProfilePic(profileData?.images[0].url);
+      const topArtists = await getTopArtists();
+      setArtists(topArtists);
+      const topTracks = await getTopTracks();
+      setTracks(topTracks);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   //get profile data and userID
   useEffect(() => {
-    if (isAccessTokenExpired()) {
-      const clientId = import.meta.env.VITE_CLIENT_ID;
-      const refreshToken = localStorage.getItem("refresh_token");
-      const body = new URLSearchParams({
-        grant_type: "refresh_token",
-        refresh_token: refreshToken,
-        client_id: clientId,
-      });
-      getToken(body);
-    } else {
-      getProfileData();
-      console.log({ userProfile });
-    }
+    getProfileData()
   }, []);
 
   //second useEffect for getting playlist data with userID
