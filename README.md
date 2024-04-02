@@ -9,5 +9,4 @@ If you are developing a production application, we recommend updating the config
 
 - Configure the top-level `parserOptions` property like this:
 
-//clear local storage and renav on logout
-//
+//api calls in accountpage
