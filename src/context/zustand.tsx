@@ -16,7 +16,10 @@ const useAuthStore = create((set) => ({
     image: "",
   },
   userProfilePic: "",
-  selectedPlaylistId: "",
+  selectedPlaylist: {
+    playlistId: "",
+    tracks: [],
+  },
   //track uris from the selected playlist:
   selectedPlaylistTrackList: [],
   //uris from selected playlist or from selected individual song:
@@ -38,8 +41,8 @@ const useAuthStore = create((set) => ({
   },
   setUserProfilePic: (profPicUrl: string) => {
     set(() => ({
-      userProfilePic: profPicUrl
-    }))
+      userProfilePic: profPicUrl,
+    }));
   },
   setCurrentTrack: (
     newTrackUri: string,
@@ -58,9 +61,9 @@ const useAuthStore = create((set) => ({
       },
     }));
   },
-  setCurrentPlaylist: (playlistId: string) =>
-    set(() => ({
-      selectedPlaylistId: playlistId,
+  setSelectedPlaylist: (updates) =>
+    set((state) => ({
+      selectedPlaylist: { ...state.selectedPlaylist, ...updates },
     })),
   setCurrentPlaylistTrackList: (tracksArray: Array) =>
     set(() => ({
@@ -68,10 +71,10 @@ const useAuthStore = create((set) => ({
         (track: object) => track.track["uri"]
       ),
     })),
-  setCurrentlyPlayingTrackUris: (uris: Array) =>
-    set(() => ({
-      currentlyPlayingTrackUris: uris,
-    })),
+  // setCurrentlyPlayingTrackUris: (uris: Array) =>
+  //   set(() => ({
+  //     currentlyPlayingTrackUris: uris,
+  //   })),
 }));
 
 export default useAuthStore;

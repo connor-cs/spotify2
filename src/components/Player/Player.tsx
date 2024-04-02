@@ -8,7 +8,8 @@ import {
 import "./Player.css";
 import useAuthStore from "../../context/zustand.js";
 import { isAccessTokenExpired, getToken } from "../../utils/Login.js";
-import { getTracksFromPlaylist } from "../../utils/GetUserInfoFunctions.js";
+import { fetchWithAuth } from "../../utils/GetUserInfoFunctions";
+// import { getTracksFromPlaylist } from "./PlayerFunctions.js"
 
 const Player: React.FC<SpotifyPlayerProps> = () => {
   const [player, setPlayer] = useState<Spotify.SpotifyPlayer | null>(null);
@@ -16,21 +17,22 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
   const [isActive, setActive] = useState(false);
   const [deviceId, setDeviceId] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
-  const {
-    selectedTrack,
-    selectedPlaylistId,
-    selectedPlaylistTrackList,
-    setCurrentPlaylistTrackList,
-    currentlyPlayingTrackUris,
-  } = useAuthStore();
+  const { selectedTrack, selectedPlaylist } = useAuthStore();
   const { trackUri } = selectedTrack;
-  //I don't remember what this is for:
-  const [currentlyPlayingUris, setCurrentlyPlayingTrackUris] = useState([]);
+  const { playlistId } = selectedPlaylist;
   // const activePlaylist = currentPlaylistTrackList.length > 0
 
-  // console.log({ selectedPlaylistTrackList });
+  console.log({ playlistId });
 
-  // console.log({ selectedTrack });
+  const handlePlaylistSelect = async (playlistId) => {
+    const res = await fetchWithAuth(
+      `/playlists/${playlistId}/tracks`,
+      isAccessTokenExpired,
+      getToken
+    );
+    const data = await res.json()
+    console.log(data)
+  };
 
   //move this into playerfunctions file?
   const handlePlay = async () => {
@@ -98,12 +100,8 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
 
   //when playlist is clicked on from sidebar, get playlist id and use it to get tracks list
   useEffect(() => {
-    getTracksFromPlaylist(selectedPlaylistId).then(
-      (res) => setCurrentPlaylistTrackList(res)
-      // setListTracks(res)
-    );
-    setCurrentPlaylistTrackList;
-  }, [selectedPlaylistId]);
+    handlePlaylistSelect(playlistId)
+  }, [playlistId]);
 
   useEffect(() => {
     if (isAccessTokenExpired()) {
