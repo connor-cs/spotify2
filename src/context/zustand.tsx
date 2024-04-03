@@ -18,7 +18,7 @@ const useAuthStore = create((set) => ({
   userProfilePic: "",
   selectedPlaylist: {
     playlistId: "",
-    tracks: [],
+    playlistTracks: [],
   },
   //track uris from the selected playlist:
   selectedPlaylistTrackList: [],

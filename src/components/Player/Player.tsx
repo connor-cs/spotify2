@@ -17,9 +17,10 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
   const [isActive, setActive] = useState(false);
   const [deviceId, setDeviceId] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
-  const { selectedTrack, selectedPlaylist } = useAuthStore();
+  const { selectedTrack, selectedPlaylist, setSelectedPlaylist } =
+    useAuthStore();
   const { trackUri } = selectedTrack;
-  const { playlistId } = selectedPlaylist;
+  const { playlistId, playlistTracks } = selectedPlaylist;
   // const activePlaylist = currentPlaylistTrackList.length > 0
 
   console.log({ playlistId });
@@ -30,13 +31,21 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
       isAccessTokenExpired,
       getToken
     );
-    const data = await res.json()
-    console.log(data)
+    const data = await res.json();
+    const trackUriArray = data.items.map((item) => item.track.uri);
+    setSelectedPlaylist({ ...selectedPlaylist, playlistTracks: trackUriArray });
   };
 
-  //move this into playerfunctions file?
+  console.log({ playlistTracks });
+  //move this into playerfunctions file
   const handlePlay = async () => {
     const accessToken = localStorage.getItem("access_token");
+    let uris;
+    if (playlistId) {
+      uris = playlistTracks;
+    } else {
+      uris = [trackUri];
+    }
 
     await fetch(
       `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
@@ -46,7 +55,7 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
           Authorization: "Bearer " + accessToken,
         },
         body: JSON.stringify({
-          uris: [`${trackUri}`],
+          uris: uris,
         }),
       }
     );
@@ -100,7 +109,7 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
 
   //when playlist is clicked on from sidebar, get playlist id and use it to get tracks list
   useEffect(() => {
-    handlePlaylistSelect(playlistId)
+    handlePlaylistSelect(playlistId);
   }, [playlistId]);
 
   useEffect(() => {

@@ -8,7 +8,6 @@ import AlbumCard from "../../components/card_components/AlbumCard.tsx";
 import "./ArtistPage.css";
 import useAuthStore from "../../context/zustand.tsx";
 import { isAccessTokenExpired, getToken } from "../../utils/Login.js";
-import { fetchWithAuth } from "../../utils/GetUserInfoFunctions";
 
 const ArtistPage = () => {
   const clientId = import.meta.env.VITE_CLIENT_ID;
@@ -25,12 +24,7 @@ const ArtistPage = () => {
 
   async function getArtistInfo(artistId: string) {
     try {
-      const res = await fetchWithAuth(
-        `/artists/${artistId}`,
-        isAccessTokenExpired,
-        getToken
-      );
-      const artist = await res.json();
+      const artist = await api.artists.get(artistId);
       setArtistInfo(artist);
       setLoaded(true);
     } catch (error) {
@@ -39,30 +33,39 @@ const ArtistPage = () => {
   }
 
   async function getArtistTopAlbums(artistId: string) {
-    const res = await fetchWithAuth(
-      `/artists/${artistId}/albums?limit=6`,
-      isAccessTokenExpired,
-      getToken
+    const accessToken = localStorage.getItem("access_token");
+    const res = await fetch(
+      `https://api.spotify.com/v1/artists/${artistId}/albums?limit=5`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      }
     );
     const data = await res.json();
+    console.log({ data });
     setTopAlbums(data.items);
   }
 
-  async function getArtistTopTracks(artistId: string, market: Market) {
-    const res = await fetchWithAuth(
-      `/artists/${artistId}/top-tracks?market=${market}`,
-      isAccessTokenExpired,
-      getToken
-    );
-    const tracks = await res.json();
+  async function getTopTracks(artistId: string, market: Market) {
+    const tracks = await api.artists.topTracks(artistId, market);
     setTopTracks(tracks.tracks);
   }
 
   //get data about artist
   useEffect(() => {
-    getArtistInfo(id);
-    getArtistTopTracks(id, "US");
-    getArtistTopAlbums(id);
+    if (isAccessTokenExpired()) {
+      const body = new URLSearchParams({
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+      });
+      getToken(body);
+    } else {
+      getArtistInfo(id);
+      getTopTracks(id, "US");
+      getArtistTopAlbums(id);
+    }
   }, [id]);
 
   return (
