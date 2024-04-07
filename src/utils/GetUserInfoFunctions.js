@@ -55,21 +55,6 @@ export async function getUserPlaylists(id) {
   return data.items;
 }
 
-export const getTracksFromPlaylist = async (currentPlaylistId) => {
-  const accessToken = localStorage.getItem("access_token");
-  const data = await fetch(
-    API_BASE_URL + `/playlists/${currentPlaylistId}/tracks`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + accessToken,
-      },
-    }
-  );
-  const tracks = await data.json();
-  return tracks.items;
-};
-
 export const getAlbumInfo = async (albumId) => {
   const accessToken = localStorage.getItem("access_token");
   const res = await fetch(API_BASE_URL + `/v1/albums/${albumId}`, {
