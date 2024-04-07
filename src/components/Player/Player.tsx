@@ -23,8 +23,6 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
   const { playlistId, playlistTracks } = selectedPlaylist;
   // const activePlaylist = currentPlaylistTrackList.length > 0
 
-  console.log({ playlistId });
-
   const handlePlaylistSelect = async (playlistId) => {
     const res = await fetchWithAuth(
       `/playlists/${playlistId}/tracks`,
@@ -32,11 +30,11 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
       getToken
     );
     const data = await res.json();
+    console.log(data.items)
     const trackUriArray = data.items.map((item) => item.track.uri);
     setSelectedPlaylist({ ...selectedPlaylist, playlistTracks: trackUriArray });
   };
 
-  console.log({ playlistTracks });
   //move this into playerfunctions file
   const handlePlay = async () => {
     const accessToken = localStorage.getItem("access_token");
