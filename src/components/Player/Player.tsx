@@ -15,13 +15,22 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
   const [player, setPlayer] = useState<Spotify.SpotifyPlayer | null>(null);
   const [paused, setPaused] = useState(false);
   const [isActive, setActive] = useState(false);
+  const [trackDisplayData, setTrackDisplayData] = useState({
+    albumArt: "",
+    duration: "",
+    artist: "",
+    trackName: "",
+  });
   const [deviceId, setDeviceId] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
   const { selectedTrack, selectedPlaylist, setSelectedPlaylist } =
     useAuthStore();
   const { trackUri } = selectedTrack;
   const { playlistId, playlistTracks } = selectedPlaylist;
-  // const activePlaylist = currentPlaylistTrackList.length > 0
+
+  // console.log(selectedPlaylist)
+
+  ///NO LONGER NEED SLECTED TRACK DATA TO DISPLAY
 
   const handlePlaylistSelect = async (playlistId) => {
     const res = await fetchWithAuth(
@@ -30,9 +39,12 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
       getToken
     );
     const data = await res.json();
-    console.log(data.items)
+    console.log("dat", data.items);
     const trackUriArray = data.items.map((item) => item.track.uri);
-    setSelectedPlaylist({ ...selectedPlaylist, playlistTracks: trackUriArray });
+    setSelectedPlaylist({
+      ...selectedPlaylist,
+      playlistTracks: trackUriArray,
+    });
   };
 
   //move this into playerfunctions file
@@ -158,7 +170,14 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
           if (!state) {
             return;
           }
-          setCurrentTrack(state.track_window.current_track);
+          console.log({ state });
+          const data = state.track_window.current_track
+          setTrackDisplayData({
+            albumArt: data.album.images[1].url,
+            duration: data.duration_ms,
+            artist: data.artists[0].name,
+            trackName: data.name
+          });
           setPaused(state.paused);
 
           player.getCurrentState().then((state) => {
@@ -179,7 +198,7 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
     <div className="footer d-flex  justify-content-between mb-4">
       <div className="footer-left track-info-section">
         <div className="">
-          <img src={selectedTrack.image} />
+          <img src={trackDisplayData.albumArt} />
         </div>
         <div className="player-track-info">
           <p className="player-songname">{selectedTrack.trackName}</p>
