@@ -1,11 +1,5 @@
 import { create } from "zustand";
 
-//use this:
-// spotify-sdk:ClientCredentialsStrategy:token
-// or this?
-// access_token
-//
-//
 const useAuthStore = create((set) => ({
   accessToken: localStorage.getItem("access_token"),
   selectedTrack: {
@@ -19,11 +13,8 @@ const useAuthStore = create((set) => ({
   selectedPlaylist: {
     playlistId: "",
     playlistTracks: [],
+    
   },
-  //track uris from the selected playlist:
-  selectedPlaylistTrackList: [],
-  //uris from selected playlist or from selected individual song:
-  currentlyPlayingTrackUris: [],
   login: (token) => {
     localStorage.setItem("access_token", token);
     set({ isAuthenticated: true, accessToken: token });
