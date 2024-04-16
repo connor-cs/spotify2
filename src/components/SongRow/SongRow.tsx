@@ -2,20 +2,20 @@ import useAuthStore from "../../context/zustand";
 import './SongRow.css'
 
 const SongRow = ({ track }) => {
-  const { setCurrentTrack, setCurrentlyPlayingTrackUri } = useAuthStore();
+  const { setSelectedTrack, setSelectedPlaylist } = useAuthStore();
   // console.log(currentTrack)
 
   return (
     <div
       onClick={() => {
-        setCurrentTrack(
+        setSelectedTrack(
           track.uri,
           track.id,
           track.name,
           track.artists[0].name,
           track.album.images[2].url
         );
-        // setCurrentlyPlayingTrackUri(track.uri);
+        setSelectedPlaylist({})
       }}
       className="songRow d-flex"
       key={track.id}
