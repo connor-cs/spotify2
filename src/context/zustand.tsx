@@ -15,7 +15,7 @@ const useAuthStore = create((set) => ({
     playlistTracks: [],
     
   },
-  login: (token) => {
+    login: (token) => {
     localStorage.setItem("access_token", token);
     set({ isAuthenticated: true, accessToken: token });
   },

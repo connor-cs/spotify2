@@ -198,7 +198,7 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
     <div className="footer d-flex  justify-content-between mb-4">
       <div className="footer-left track-info-section">
         <div className="">
-          <img src={trackDisplayData.albumArt} />
+          <img src={selectedTrack.image} />
         </div>
         <div className="player-track-info">
           <p className="player-songname">{selectedTrack.trackName}</p>

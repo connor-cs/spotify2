@@ -15,7 +15,7 @@ const SongRow = ({ track }) => {
           track.artists[0].name,
           track.album.images[2].url
         );
-        setCurrentlyPlayingTrackUri(track.uri);
+        // setCurrentlyPlayingTrackUri(track.uri);
       }}
       className="songRow d-flex"
       key={track.id}
