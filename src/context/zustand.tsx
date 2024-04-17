@@ -13,7 +13,6 @@ const useAuthStore = create((set) => ({
   selectedPlaylist: {
     playlistId: "",
     playlistTracks: [],
-    
   },
   login: (token) => {
     localStorage.setItem("access_token", token);
@@ -35,7 +34,7 @@ const useAuthStore = create((set) => ({
       userProfilePic: profPicUrl,
     }));
   },
-  setCurrentTrack: (
+  setSelectedTrack: (
     newTrackUri: string,
     trackId: string,
     trackName: string,

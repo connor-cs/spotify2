@@ -23,14 +23,16 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
   });
   const [deviceId, setDeviceId] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
-  const { selectedTrack, selectedPlaylist, setSelectedPlaylist } =
+  const { selectedTrack, setSelectedTrack, selectedPlaylist, setSelectedPlaylist } =
     useAuthStore();
   const { trackUri } = selectedTrack;
   const { playlistId, playlistTracks } = selectedPlaylist;
 
   // console.log(selectedPlaylist)
 
-  ///NO LONGER NEED SLECTED TRACK DATA TO DISPLAY
+  ///refactor api calls
+
+  // console.log("trackdisplaydat", trackDisplayData)
 
   const handlePlaylistSelect = async (playlistId) => {
     const res = await fetchWithAuth(
@@ -39,19 +41,29 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
       getToken
     );
     const data = await res.json();
-    console.log("dat", data.items);
+    // console.log("dat", data.items);
     const trackUriArray = data.items.map((item) => item.track.uri);
     setSelectedPlaylist({
       ...selectedPlaylist,
+      playlistId: playlistId,
       playlistTracks: trackUriArray,
     });
+    if (trackUriArray.length > 0) {
+      const firstTrackData = data.items[0].track
+      setTrackDisplayData({
+        albumArt: firstTrackData.album.images[2].url,
+        duration: firstTrackData.duration_ms,
+        artist: firstTrackData.artists[0].name,
+        trackName: firstTrackData.name,
+      });
+    }
   };
 
   //move this into playerfunctions file
   const handlePlay = async () => {
     const accessToken = localStorage.getItem("access_token");
     let uris;
-    if (playlistId) {
+    if (playlistId && playlistTracks.length>0) {
       uris = playlistTracks;
     } else {
       uris = [trackUri];
@@ -103,12 +115,12 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
     await fetch(
       `https://api.spotify.com/v1/me/player/next?device_id=${deviceId}`
     ),
-      {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      };
+    {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    };
 
     if (player) {
       player.nextTrack().then(() => {
@@ -120,6 +132,7 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
   //when playlist is clicked on from sidebar, get playlist id and use it to get tracks list
   useEffect(() => {
     handlePlaylistSelect(playlistId);
+    setSelectedTrack({ ...selectedTrack, trackUri: "" })
   }, [playlistId]);
 
   useEffect(() => {
@@ -173,15 +186,18 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
           console.log({ state });
           const data = state.track_window.current_track
           setTrackDisplayData({
-            albumArt: data.album.images[1].url,
-            duration: data.duration_ms,
-            artist: data.artists[0].name,
-            trackName: data.name
-          });
+              albumArt: data.album.images[1].url,
+              duration: data.duration_ms,
+              artist: data.artists[0].name,
+              trackName: data.name,
+            });
+
           setPaused(state.paused);
 
           player.getCurrentState().then((state) => {
             !state ? setActive(false) : setActive(true);
+            
+            
           });
         });
 
@@ -198,11 +214,15 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
     <div className="footer d-flex  justify-content-between mb-4">
       <div className="footer-left track-info-section">
         <div className="">
-          <img src={trackDisplayData.albumArt} />
+          <img src={selectedTrack.trackUri.length ? (selectedTrack.image) :
+
+
+
+            (trackDisplayData.albumArt)} />
         </div>
         <div className="player-track-info">
-          <p className="player-songname">{selectedTrack.trackName}</p>
-          <p className="player-artistname">{selectedTrack.artist}</p>
+          <p className="player-songname">{selectedTrack.trackName ? (selectedTrack.trackName) : (trackDisplayData.trackName)}</p>
+          <p className="player-artistname">{selectedTrack.artist ? (selectedTrack.artist) : trackDisplayData.artist}</p>
         </div>
       </div>
 

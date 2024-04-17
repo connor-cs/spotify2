@@ -10,7 +10,7 @@ import { fetchWithAuth } from "../../utils/GetUserInfoFunctions";
 const AlbumPage = () => {
   const { albumId } = useParams<{ albumId: string }>();
   const [albumInfo, setAlbumInfo] = useState(null);
-  const { setCurrentTrack } = useAuthStore();
+  const { setSelectedTrack } = useAuthStore();
 
   
   const getAlbumInfo = async (albumId: string) => {
@@ -63,7 +63,9 @@ const AlbumPage = () => {
       <div className="album-songs-container">
         {albumInfo
           ? albumInfo.tracks.items.map((track) => (
-              <div className="songRow" key={track.id}>
+              <div className="songRow" key={track.id} onClick={()=>{
+                setSelectedPlaylist({playlistId: "", playlistTracks: []})
+              }}>
                 <p>{track.name}</p>
               </div>
             ))
