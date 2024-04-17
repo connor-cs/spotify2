@@ -15,7 +15,7 @@ const SongRow = ({ track }) => {
           track.artists[0].name,
           track.album.images[2].url
         );
-        setSelectedPlaylist({})
+        setSelectedPlaylist({ playlistId: "", playlistTracks: [] })
       }}
       className="songRow d-flex"
       key={track.id}
@@ -27,7 +27,6 @@ const SongRow = ({ track }) => {
           <p>{track.artists[0]?.name} </p>
           <p> {track.album?.name}</p>
         </div>
-        {/* <p>{track.artists[0].name}{" "} {track.album.name}</p> */}
       </div>
     </div>
   );

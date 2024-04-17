@@ -63,7 +63,7 @@ const Player: React.FC<SpotifyPlayerProps> = () => {
   const handlePlay = async () => {
     const accessToken = localStorage.getItem("access_token");
     let uris;
-    if (playlistId) {
+    if (playlistId && playlistTracks.length>0) {
       uris = playlistTracks;
     } else {
       uris = [trackUri];

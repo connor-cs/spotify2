@@ -18,7 +18,7 @@ const ArtistPage = () => {
   const [artistInfo, setArtistInfo] = useState<null>(null);
   const [topTracks, setTopTracks] = useState<[]>();
   const [topAlbums, setTopAlbums] = useState<[]>();
-  const { setCurrentTrack } = useAuthStore();
+  const { setSelectedTrack, setSelectedPlaylist } = useAuthStore();
   const { id } = useParams<{ id: string }>();
   //should I create a type called ArtistInfo
 
@@ -96,41 +96,42 @@ const ArtistPage = () => {
               >
                 {topTracks
                   ? topTracks.map((track) => (
-                      <div
-                        onClick={() =>
-                          setCurrentTrack(
-                            track.uri,
-                            track.id,
-                            track.name,
-                            track.artists[0].name,
-                            track.album.images[2].url
-                          )
-                        }
-                        className="songRow d-flex"
-                        key={track.id}
-                      >
-                        <img
-                          className="songRow-album"
-                          src={track.album.images[2].url}
-                        />
-                        <div className="songRow-info text-light">
-                          <h1 className="fs-4 songRow-trackName m-0">
-                            {track.name}
-                          </h1>
-                          <div className="songRow-artist-album">
-                            <p>{track.artists[0].name} </p>
-                            <p> {track.album.name}</p>
-                          </div>
+                    <div
+                      onClick={() => {
+                        setSelectedTrack(
+                          track.uri,
+                          track.id,
+                          track.name,
+                          track.artists[0].name,
+                          track.album.images[2].url
+                        )
+                        setSelectedPlaylist({ playlistId: "", playlistTracks: [] })
+                      }}
+                      className="songRow d-flex"
+                      key={track.id}
+                    >
+                      <img
+                        className="songRow-album"
+                        src={track.album.images[2].url}
+                      />
+                      <div className="songRow-info text-light">
+                        <h1 className="fs-4 songRow-trackName m-0">
+                          {track.name}
+                        </h1>
+                        <div className="songRow-artist-album">
+                          <p>{track.artists[0].name} </p>
+                          <p> {track.album.name}</p>
                         </div>
                       </div>
-                    ))
+                    </div>
+                  ))
                   : null}
               </ListGroup>
             </div>
           </div>
         </div>
       ) : (
-        AiFillPauseCircle
+        <AiFillPauseCircle />
       )}
     </div>
   );
