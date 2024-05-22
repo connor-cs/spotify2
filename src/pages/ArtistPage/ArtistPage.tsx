@@ -54,6 +54,7 @@ const ArtistPage = () => {
   }
 
   //get data about artist
+  //refactor for if user is not logged in
   useEffect(() => {
     if (isAccessTokenExpired()) {
       const body = new URLSearchParams({

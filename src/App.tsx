@@ -34,7 +34,8 @@ function App() {
   const api = SpotifyApi.withClientCredentials(clientId, clientSecret);
 
   // console.log(results);
-  // console.log({searchType})
+  console.log({searchType})
+  console.log(searchType.length)
 
   // async function submit(e: React.BaseSyntheticEvent, searchType: string) {
   //   e.preventDefault();
@@ -58,9 +59,22 @@ function App() {
 
   async function submit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (searchType === 'artist') {
+      const items = await api.search(searchText, ['artist']);
+      console.log(items)
+      setResults(items.artists.items);
+    } else if (searchType === 'track') {
+      const items = await api.search(searchText, ['track']);
+      console.log(items)
+      setTrackResults(items.tracks.items);
+    } else if (searchType === 'album') {
+      const items = await api.search(searchText, ['album']);
+      console.log(items)
+      setResults(items.albums.items);
+    }
 
-    const items = await api.search(searchText, ["artist"]);
-    setResults(items.artists.items);
+    // const items = await api.search(searchText, ["artist"]);
+    // setResults(items.artists.items);
   }
 
   return (
