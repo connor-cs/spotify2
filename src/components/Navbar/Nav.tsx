@@ -74,7 +74,7 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
         </Dropdown> */}
 
           <select className="dropdown"
-            value={searchType} defaultValue={null} onChange={(e) => setSearchType(e.target.value)}>
+            value={searchType} onChange={(e) => setSearchType(e.target.value)}>
             <option value="" >Search for...</option>
             <option value="artist">Artists</option>
             <option value="track">Tracks</option>

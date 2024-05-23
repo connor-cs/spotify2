@@ -13,7 +13,7 @@ const SearchResultsContainer = ({ results }) => {
     }
   }, []);
 
-  console.log(results)
+  // console.log(results)
 
   return (
     <div className=".bg-dark">

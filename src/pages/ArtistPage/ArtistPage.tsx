@@ -56,18 +56,26 @@ const ArtistPage = () => {
   //get data about artist
   //refactor for if user is not logged in
   useEffect(() => {
-    if (isAccessTokenExpired()) {
-      const body = new URLSearchParams({
-        grant_type: "refresh_token",
-        refresh_token: refreshToken,
-      });
-      getToken(body);
-    } else {
+    const refreshToken = localStorage.getItem("refresh_token")
+    if (refreshToken) {
+      if (isAccessTokenExpired()) {
+        const body = new URLSearchParams({
+          grant_type: "refresh_token",
+          refresh_token: refreshToken,
+        });
+        getToken(body);
+      }
+    }
+    else {
       getArtistInfo(id);
       getTopTracks(id, "US");
       getArtistTopAlbums(id);
+      setLoaded(true)
     }
   }, [id]);
+
+  console.log({ artistInfo })
+  console.log({ id })
 
   return (
     <div>
@@ -132,7 +140,7 @@ const ArtistPage = () => {
           </div>
         </div>
       ) : (
-        <AiFillPauseCircle />
+        <p>Loading...</p>
       )}
     </div>
   );
