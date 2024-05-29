@@ -17,6 +17,7 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
     accessToken,
     userProfilePic,
     setUserProfilePic,
+    
   } = useAuthStore();
   const isAuthenticated = !isAccessTokenExpired();
   const [errors, setErrors] = useState(false)

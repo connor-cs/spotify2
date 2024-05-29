@@ -1,8 +1,12 @@
 import { useEffect } from "react";
 import ArtistCard from "../components/card_components/ArtistCard";
 import { loginCallback } from "../utils/Login";
+import useAuthStore from "../context/zustand";
 
 const SearchResultsContainer = ({ results }) => {
+
+  const {searchType} = useAuthStore()
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
@@ -13,7 +17,7 @@ const SearchResultsContainer = ({ results }) => {
     }
   }, []);
 
-  // console.log(results)
+  console.log({searchType})
 
   return (
     <div className=".bg-dark">

@@ -14,6 +14,7 @@ const useAuthStore = create((set) => ({
     playlistId: "",
     playlistTracks: [],
   },
+  searchType: "",
   login: (token) => {
     localStorage.setItem("access_token", token);
     set({ isAuthenticated: true, accessToken: token });
@@ -61,10 +62,10 @@ const useAuthStore = create((set) => ({
         (track: object) => track.track["uri"]
       ),
     })),
-  // setCurrentlyPlayingTrackUris: (uris: Array) =>
-  //   set(() => ({
-  //     currentlyPlayingTrackUris: uris,
-  //   })),
+  setSearchType: (searchType: string) =>
+    set(() => ({
+      searchType: searchType
+    }))
 }));
 
 export default useAuthStore;

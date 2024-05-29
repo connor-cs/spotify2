@@ -65,6 +65,10 @@ const ArtistPage = () => {
         });
         getToken(body);
       }
+      getArtistInfo(id);
+      getTopTracks(id, "US");
+      getArtistTopAlbums(id);
+      setLoaded(true)
     }
     else {
       getArtistInfo(id);
@@ -74,8 +78,8 @@ const ArtistPage = () => {
     }
   }, [id]);
 
-  console.log({ artistInfo })
-  console.log({ id })
+  // console.log({ artistInfo })
+  // console.log({ id })
 
   return (
     <div>
