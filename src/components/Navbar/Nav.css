@@ -1,3 +1,24 @@
+.dropdown {
+  background-color: #1f1f1f !important;
+  position: relative;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown > option {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  color: white;
+  left: 0;
+}
+
 .home-icon {
   color: white;
   cursor: pointer;
@@ -15,22 +36,31 @@
   margin: .4rem;
 }
 
+.nav {
+  display: flex;
+  flex-direction: column;
+}
+
 .nav-bar {
   justify-content: space-between;
 }
 
 .nav-button {
-color: white;
-cursor: pointer;
-background-color: #1f1f1f;
-border: none;
+  color: white;
+  cursor: pointer;
+  background-color: #1f1f1f;
+  border: none;
 }
 
-.nav-button:hover{
+.nav-button:hover {
   background-color: #2a2a2a;
   border: none;
 }
 
 .search-bar {
   margin-top: .3rem;
+}
+
+.test-drop{
+  background-color: #1f1f1f !important;
 }

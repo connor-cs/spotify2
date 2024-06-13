@@ -5,6 +5,7 @@ const SongRow = ({ track }) => {
   const { setSelectedTrack, setSelectedPlaylist } = useAuthStore();
   // console.log(currentTrack)
 
+  console.log(track)
   return (
     <div
       onClick={() => {

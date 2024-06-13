@@ -27,6 +27,7 @@ const AlbumPage = () => {
       console.log(err);
     }
   };
+  console.log({albumId})
 
   useEffect(() => {
     // if (isAccessTokenExpired()) {

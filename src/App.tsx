@@ -12,7 +12,6 @@ import Nav from "./components/Navbar/Nav";
 import ArtistPage from "./pages/ArtistPage/ArtistPage";
 import AlbumPage from "./pages/AlbumPage/AlbumPage";
 import AccountPage from "./pages/AccountPage/AccountPage";
-import Home from "./pages/SearchResultsContainer";
 import Player from "./components/Player/Player";
 import useAuthStore from "./context/zustand";
 import SearchResultsContainer from "./pages/SearchResultsContainer";
@@ -20,7 +19,7 @@ import SearchResultsContainer from "./pages/SearchResultsContainer";
 function App() {
   const [searchText, setSearchText] = useState("");
   const [results, setResults] = useState<Artist[]>([]);
-  const [searchType, setSearchType] = useState("");
+  const {setSearchType, searchType} = useAuthStore()
   // const [artistResults, setArtistResults] = useState<Artist[]>();
   const [trackResults, setTrackResults] = useState<Track[]>();
 
@@ -33,34 +32,26 @@ function App() {
   const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
   const api = SpotifyApi.withClientCredentials(clientId, clientSecret);
 
-  // console.log(results);
-  // console.log({searchType})
-
-  // async function submit(e: React.BaseSyntheticEvent, searchType: string) {
-  //   e.preventDefault();
-  //   console.log({searchType}, 'fun')
-  //   console.log(searchType=='track')
-
-  //   if (searchType === 'artist') {
-  //     const items = await api.search(searchText, ['artist']);
-  //     setResults(items.artists.items);
-  //   }
-
-  //   if (searchType === 'track') {
-  //     const items = await api.search(searchText, ['track']);
-  //     console.log({items})
-  //   }
-
-  //   else return
-
-  //   console.log(results)
-  // }
-
+  //refactor this to avoid repetition:
   async function submit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (searchType === 'artist') {
+      const items = await api.search(searchText, ['artist']);
+      // console.log(items)
+      setResults(items.artists.items);
+    } else if (searchType === 'track') {
+      const items = await api.search(searchText, ['track']);
+      console.log(items)
+      setTrackResults(items.tracks.items);
+    } else if (searchType === 'album') {
+      const items = await api.search(searchText, ['album']);
+      // console.log(items)
+      setResults(items.albums.items)
+      console.log(items)
+    }
 
-    const items = await api.search(searchText, ["artist"]);
-    setResults(items.artists.items);
+    // const items = await api.search(searchText, ["artist"]);
+    // setResults(items.artists.items);
   }
 
   return (
