@@ -12,7 +12,6 @@ import Nav from "./components/Navbar/Nav";
 import ArtistPage from "./pages/ArtistPage/ArtistPage";
 import AlbumPage from "./pages/AlbumPage/AlbumPage";
 import AccountPage from "./pages/AccountPage/AccountPage";
-import Home from "./pages/SearchResultsContainer";
 import Player from "./components/Player/Player";
 import useAuthStore from "./context/zustand";
 import SearchResultsContainer from "./pages/SearchResultsContainer";
@@ -20,7 +19,7 @@ import SearchResultsContainer from "./pages/SearchResultsContainer";
 function App() {
   const [searchText, setSearchText] = useState("");
   const [results, setResults] = useState<Artist[]>([]);
-  const [searchType, setSearchType] = useState("");
+  const {setSearchType, searchType} = useAuthStore()
   // const [artistResults, setArtistResults] = useState<Artist[]>();
   const [trackResults, setTrackResults] = useState<Track[]>();
 
@@ -47,7 +46,8 @@ function App() {
     } else if (searchType === 'album') {
       const items = await api.search(searchText, ['album']);
       // console.log(items)
-      setResults(items.albums.items);
+      setResults(items.albums.items)
+      console.log(items)
     }
 
     // const items = await api.search(searchText, ["artist"]);

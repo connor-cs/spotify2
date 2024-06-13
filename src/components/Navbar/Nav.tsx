@@ -22,6 +22,7 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
   const isAuthenticated = !isAccessTokenExpired();
   const [errors, setErrors] = useState(false)
 
+
   function goHome() {
     navigate("/");
   }
@@ -95,10 +96,6 @@ const Nav = ({ submit, handleChange, setSearchType, searchType }) => {
                 submit(e, searchType);
                 goHome();
               }
-
-
-
-
             }}
           >
             Search
